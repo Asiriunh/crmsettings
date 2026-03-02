@@ -3,275 +3,160 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Сценарии настройки CRM</title>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Настройки CRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#F6FAFB;
-  --card:#ffffff;
-  --card-hover:#FAFCFD;
-  --surface:#F0F4F6;
-  --surface2:#E8EEF2;
-  --border:#DDE5EC;
-  --border-focus:#0075FF;
-  --accent:#0075FF;
-  --accent-hover:#005ED4;
-  --accent-light:#EBF3FF;
-  --accent-mid:rgba(0,117,255,.12);
-  --text:#0D1117;
-  --text-muted:#5C6A7A;
-  --text-dim:#94A3B5;
-  --green:#0B9E6E;
-  --green-bg:#EDFAF4;
-  --amber:#B45309;
-  --amber-bg:#FEF3CD;
-  --red:#C0392B;
-  --r:12px;--r-sm:7px;--r-xs:5px;
-  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
-  --shadow-md:0 4px 12px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.04);
-  --shadow-lg:0 12px 40px rgba(0,0,0,.12),0 4px 12px rgba(0,0,0,.06);
+  --bg:#F2F4F7;
+  --sidebar:#FFFFFF;
+  --content:#F5F7FA;
+  --card:#FFFFFF;
+  --border:#E5E8ED;
+  --border2:#D0D5DD;
+  --text:#1A1A2E;
+  --muted:#6B7A8D;
+  --dim:#9DAAB8;
+  --teal:#2FC6F6;
+  --teal-dark:#1AA8D8;
+  --teal-light:rgba(47,198,246,.12);
+  --r:10px;--r-sm:7px;--r-xs:5px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.07);
+  --shadow-md:0 4px 16px rgba(0,0,0,.1);
 }
-html{font-size:14px;-webkit-font-smoothing:antialiased}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+html,body{height:100%;margin:0;font-family:'Inter',system-ui,sans-serif;font-size:14px;-webkit-font-smoothing:antialiased;color:var(--text);overflow:hidden}
+body{background:var(--bg);display:flex}
 
-/* ─── LAYOUT ─── */
-.shell{max-width:920px;margin:0 auto;padding:40px 20px 100px}
+/* ── DRAWER ── */
+.drawer{display:flex;width:100%;height:100%}
 
-/* ─── HEADER ─── */
-.page-hd{margin-bottom:28px}
-.page-title{font-family:'Bricolage Grotesque',sans-serif;font-size:1.6rem;font-weight:800;
-  letter-spacing:-.03em;color:var(--text);margin-bottom:6px}
-.page-sub{font-size:.85rem;color:var(--text-muted)}
+/* ── SIDEBAR ── */
+.sidebar{width:240px;flex-shrink:0;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100%}
+.sidebar-hd{padding:18px 16px 10px;flex-shrink:0;border-bottom:1px solid var(--border)}
+.sidebar-top-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:10px}
+.search-wrap{position:relative}
+.search-inp{width:100%;background:var(--content);border:1px solid var(--border);border-radius:var(--r-sm);padding:7px 10px 7px 32px;font-family:'Inter',sans-serif;font-size:.82rem;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s}
+.search-inp::placeholder{color:var(--dim)}
+.search-inp:focus{border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-light)}
+.search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--dim);pointer-events:none}
 
-/* ─── CONTROLS ─── */
-.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
-.search-wrap{position:relative;flex:1;min-width:200px}
-.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-dim);pointer-events:none;flex-shrink:0}
-.search-inp{width:100%;background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);
-  padding:9px 12px 9px 34px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:.85rem;
-  outline:none;transition:border-color .18s,box-shadow .18s;box-shadow:var(--shadow)}
-.search-inp::placeholder{color:var(--text-dim)}
-.search-inp:focus{border-color:var(--border-focus);box-shadow:0 0 0 3px var(--accent-mid)}
-.tabs{display:flex;background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);
-  overflow:hidden;box-shadow:var(--shadow)}
-.tab{background:none;border:none;color:var(--text-muted);font-family:'Plus Jakarta Sans',sans-serif;
-  font-size:.8rem;font-weight:600;padding:9px 15px;cursor:pointer;transition:background .14s,color .14s;
-  white-space:nowrap;letter-spacing:.01em}
-.tab:hover{background:var(--surface);color:var(--text)}
-.tab.active{background:var(--accent);color:#fff}
+/* entity chips */
+.entity-filter{display:flex;flex-wrap:wrap;gap:4px;padding:10px 12px 8px;flex-shrink:0;border-bottom:1px solid var(--border)}
+.entity-chip{font-size:.74rem;font-weight:500;padding:3px 9px;border-radius:99px;border:1px solid var(--border);color:var(--muted);background:var(--content);cursor:pointer;transition:background .12s,color .12s,border-color .12s;user-select:none}
+.entity-chip:hover{border-color:var(--teal);color:var(--teal-dark)}
+.entity-chip.active{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:600}
 
-/* ─── STATS ROW ─── */
-.stats-row{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
-.stat-chip{font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid transparent;letter-spacing:.02em}
-.stat-chip.not-started{background:var(--surface);border-color:var(--border);color:var(--text-muted)}
-.stat-chip.in-progress{background:var(--amber-bg);border-color:rgba(180,83,9,.2);color:var(--amber)}
-.stat-chip.done{background:var(--green-bg);border-color:rgba(11,158,110,.2);color:var(--green)}
+.sidebar-nav{flex:1;overflow-y:auto;padding:6px 8px 20px}
 
-/* ─── LIST ─── */
-.list{display:flex;flex-direction:column;gap:6px}
-.empty{text-align:center;padding:60px 0;color:var(--text-dim);font-size:.9rem}
+/* nav items */
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:var(--r-sm);cursor:pointer;font-size:.84rem;font-weight:500;color:var(--muted);transition:background .12s,color .12s;user-select:none}
+.nav-item:hover{background:var(--content);color:var(--text)}
+.nav-item.active{background:var(--teal);color:#fff;font-weight:600}
+.nav-item.active .ni-icon{color:#fff}
+.ni-icon{color:var(--dim);flex-shrink:0;display:flex;align-items:center;transition:color .12s}
+.ni-label{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-/* ─── SCENARIO CARD ─── */
-.scenario{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
-  overflow:hidden;transition:border-color .18s,box-shadow .18s;box-shadow:var(--shadow)}
-.scenario.open{border-color:var(--border-focus);box-shadow:0 0 0 3px var(--accent-mid),var(--shadow)}
+/* ── CONTENT ── */
+.content{flex:1;min-width:0;background:var(--content);display:flex;flex-direction:column;height:100%;overflow:hidden}
+.content-hd{padding:24px 32px 18px;flex-shrink:0;background:var(--card);border-bottom:1px solid var(--border)}
+.content-title{font-size:1.25rem;font-weight:700;color:var(--text);margin-bottom:5px;letter-spacing:-.02em}
+.content-sub{font-size:.85rem;color:var(--muted);line-height:1.55;max-width:600px}
+.content-body{flex:1;overflow-y:auto;padding:20px 32px 40px}
 
-.sc-head{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;cursor:pointer;user-select:none;
-  transition:background .12s}
-.sc-head:hover{background:var(--card-hover)}
+/* ── ACCORDION CARD (like B24 "Профиль сотрудника / Приглашения") ── */
+.acc-card{background:var(--card);border-radius:var(--r);border:1px solid var(--border);margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.acc-head{display:flex;align-items:center;gap:12px;padding:15px 20px;cursor:pointer;user-select:none;transition:background .12s}
+.acc-head:hover{background:#FAFBFC}
+.acc-icon{color:var(--dim);flex-shrink:0;display:flex;align-items:center}
+.acc-title{flex:1;font-size:.96rem;font-weight:500;color:var(--text)}
+.acc-chev{color:var(--dim);transition:transform .2s ease;flex-shrink:0}
+.acc-card.open>.acc-head .acc-chev{transform:rotate(180deg)}
+.acc-body{display:none;border-top:1px solid var(--border)}
+.acc-card.open>.acc-body{display:block}
 
-.sc-num{font-family:'Bricolage Grotesque',sans-serif;font-size:.75rem;font-weight:700;
-  min-width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;
-  background:var(--surface);color:var(--text-dim);flex-shrink:0;transition:background .2s,color .2s;margin-top:1px}
-.scenario.open .sc-num{background:var(--accent);color:#fff}
-
-.sc-info{flex:1;min-width:0}
-.sc-title{font-family:'Bricolage Grotesque',sans-serif;font-size:.95rem;font-weight:700;
-  color:var(--text);letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sc-sub{font-size:.78rem;color:var(--text-muted);margin-top:3px;line-height:1.45;white-space:normal}
-
-.sc-right{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-top:2px}
-.sc-prog{display:flex;align-items:center;gap:7px;flex-shrink:0}
-.sc-prog-label{font-size:.72rem;color:var(--text-dim);font-variant-numeric:tabular-nums;white-space:nowrap}
-.sc-prog-bar{width:56px;height:3px;background:var(--surface2);border-radius:99px;overflow:hidden;flex-shrink:0}
-.sc-prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),#38AEFF);
-  transition:width .35s ease}
-.sc-prog-fill.all-done{background:linear-gradient(90deg,var(--green),#22C888)}
-
-
-
-.chevron{color:var(--text-dim);transition:transform .22s ease;flex-shrink:0}
-.scenario.open .chevron{transform:rotate(180deg)}
-
-/* ─── BODY ─── */
-.sc-body{display:none;border-top:1px solid var(--border)}
-.scenario.open .sc-body{display:block}
-
-/* ─── STEP ─── */
-.step{border-bottom:1px solid var(--border);transition:background .1s}
-.step:last-child{border-bottom:none}
-.step:hover{background:var(--card-hover)}
-
-/* LINK STEP */
-.step-link{display:flex;align-items:center;gap:12px;padding:11px 18px}
-.step-link-cb{width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
-.step-link-title{flex:1;font-size:.87rem;font-weight:500;color:var(--text)}
-.step-link-url{font-size:.72rem;color:var(--text-dim);font-family:monospace;flex:1;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px;display:none}
-.step-link:hover .step-link-url{display:block}
-.open-link-btn{background:none;border:1px solid var(--border);border-radius:var(--r-xs);
-  color:var(--text-muted);font-family:'Plus Jakarta Sans',sans-serif;font-size:.75rem;font-weight:600;
-  padding:5px 12px;cursor:pointer;transition:border-color .14s,color .14s,background .14s;white-space:nowrap}
-.open-link-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
-.open-link-btn.visited{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
-
-/* SETTINGS GROUP STEP */
-.step-sg{padding:0}
-.sg-head{display:flex;align-items:center;gap:10px;padding:11px 18px;cursor:pointer;
-  transition:background .1s;user-select:none}
-.sg-head:hover{background:var(--surface)}
-.sg-icon{width:18px;height:18px;border-radius:4px;background:var(--surface2);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
-.step-sg.sg-open .sg-icon{background:var(--accent-light)}
-.sg-title{flex:1;font-size:.87rem;font-weight:600;color:var(--text)}
-.sg-source{font-size:.7rem;color:var(--text-dim);font-family:monospace}
-.sg-chev{color:var(--text-dim);transition:transform .2s ease;flex-shrink:0}
-.step-sg.sg-open .sg-chev{transform:rotate(180deg)}
-.sg-body{display:none;border-top:1px solid var(--border)}
-.step-sg.sg-open .sg-body{display:block}
-
-/* SETTING ROW */
-.setting-row{display:flex;align-items:flex-start;gap:12px;padding:10px 18px 10px 36px;
-  border-bottom:1px solid var(--border);transition:background .1s}
+/* ── SETTING ROW ── */
+.setting-row{display:flex;align-items:flex-start;gap:14px;padding:13px 20px;border-bottom:1px solid var(--border);transition:background .1s}
 .setting-row:last-child{border-bottom:none}
-.setting-row:hover{background:var(--card-hover)}
+.setting-row:hover{background:#FAFBFC}
 .setting-row.hidden{display:none}
-.setting-label{flex:1;min-width:0}
-.setting-title{font-size:.84rem;font-weight:500;color:var(--text);line-height:1.4}
-.setting-name{font-size:.7rem;color:var(--text-dim);font-family:monospace;margin-top:1px;letter-spacing:.02em}
-.setting-note{font-size:.72rem;color:var(--text-dim);margin-top:3px;font-style:italic}
-.setting-ctrl{flex-shrink:0;display:flex;align-items:center;min-width:140px;justify-content:flex-end}
+.s-ctrl{flex-shrink:0;padding-top:1px}
+.s-text{flex:1;min-width:0}
+.s-title{font-size:.88rem;font-weight:500;color:var(--text);line-height:1.4}
+.s-name{font-size:.68rem;color:var(--dim);font-family:monospace;margin-top:2px}
+.s-note{font-size:.74rem;color:var(--muted);margin-top:3px;font-style:italic}
+.s-desc{font-size:.79rem;color:var(--muted);margin-top:3px;line-height:1.45}
+.cond-badge{display:inline-block;font-size:.64rem;font-weight:600;padding:1px 6px;border-radius:99px;background:#FEF3CD;color:#92620A;border:1px solid rgba(146,98,10,.2);margin-left:6px;vertical-align:middle;white-space:nowrap}
 
-/* TOGGLE */
-.tog{position:relative;display:inline-flex;align-items:center;cursor:pointer}
-.tog input{opacity:0;width:0;height:0;position:absolute}
-.tog-track{width:36px;height:20px;background:var(--surface2);border:1px solid var(--border);
-  border-radius:99px;transition:background .2s,border-color .2s;flex-shrink:0}
-.tog input:checked~.tog-track{background:var(--accent);border-color:var(--accent)}
-.tog-thumb{position:absolute;left:3px;top:50%;transform:translateY(-50%);
-  width:14px;height:14px;border-radius:50%;background:#fff;
-  transition:left .18s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
-.tog input:checked~.tog-thumb{left:19px}
+/* non-toggle controls placed below title */
+.ctrl-sel,.ctrl-txt,.ctrl-ta{margin-top:6px;background:var(--card);border:1px solid var(--border2);border-radius:var(--r-xs);color:var(--text);font-family:'Inter',sans-serif;font-size:.82rem;padding:6px 10px;outline:none;transition:border-color .15s;display:block}
+.ctrl-sel{cursor:pointer;max-width:220px}
+.ctrl-txt{width:220px}
+.ctrl-ta{width:220px;min-height:60px;resize:vertical}
+.ctrl-sel:focus,.ctrl-txt:focus,.ctrl-ta:focus{border-color:var(--teal)}
+.ctrl-ro-badge{display:inline-block;font-size:.63rem;font-weight:600;background:var(--content);border:1px solid var(--border);color:var(--dim);border-radius:99px;padding:1px 7px;margin-top:4px;text-transform:uppercase;letter-spacing:.04em}
 
-/* SELECT */
-.ctrl-sel{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xs);
-  color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;
-  padding:6px 10px;outline:none;cursor:pointer;transition:border-color .16s,box-shadow .16s;
-  max-width:190px}
-.ctrl-sel:focus{border-color:var(--border-focus);box-shadow:0 0 0 3px var(--accent-mid)}
+/* ── B24 TOGGLE ── */
+.b24-tog{display:inline-flex;align-items:center;gap:5px;cursor:pointer;flex-shrink:0}
+.b24-tog input{display:none}
+.b24-pill{font-size:.62rem;font-weight:700;letter-spacing:.04em;padding:2px 5px;border-radius:99px;user-select:none;transition:background .18s,color .18s;flex-shrink:0}
+.b24-pill.on{background:var(--teal);color:#fff}
+.b24-pill.off{background:#DDE3EC;color:var(--muted)}
+.b24-track{width:32px;height:17px;border-radius:99px;position:relative;transition:background .18s;flex-shrink:0}
+.b24-track.on{background:var(--teal)}
+.b24-track.off{background:#DDE3EC}
+.b24-thumb{position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:#fff;transition:left .18s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.b24-track.on .b24-thumb{left:17px}
 
-/* TEXT / TEXTAREA */
-.ctrl-txt{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xs);
-  color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;
-  padding:6px 10px;outline:none;transition:border-color .16s,box-shadow .16s;width:200px}
-.ctrl-txt:focus{border-color:var(--border-focus);box-shadow:0 0 0 3px var(--accent-mid)}
-.ctrl-ta{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xs);
-  color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;
-  padding:6px 10px;outline:none;transition:border-color .16s,box-shadow .16s;
-  width:200px;resize:vertical;min-height:56px}
-.ctrl-ta:focus{border-color:var(--border-focus);box-shadow:0 0 0 3px var(--accent-mid)}
+.link-row{display:flex;align-items:flex-start;gap:12px;padding:12px 20px;border-bottom:1px solid var(--border);transition:background .1s}
+.link-row:last-child{border-bottom:none}
+.link-row:hover{background:#FAFBFC}
+.link-icon{color:var(--dim);flex-shrink:0;display:flex;padding-top:2px}
+.link-info{flex:1;min-width:0}
+.link-title{font-size:.87rem;font-weight:500;color:var(--text);display:block}
+.link-desc{font-size:.78rem;color:var(--muted);margin-top:2px;line-height:1.4}
+.goto-btn{font-size:.78rem;font-weight:500;color:var(--teal-dark);background:none;border:none;cursor:pointer;padding:0;white-space:nowrap;flex-shrink:0;transition:color .12s;padding-top:2px}
+.goto-btn:hover{color:var(--teal)}
 
-/* READONLY */
-.ctrl-ro{text-align:right}
-.ctrl-ro-val{font-size:.82rem;color:var(--text-muted)}
-.ctrl-ro-badge{display:inline-block;font-size:.66rem;font-weight:600;background:var(--surface);
-  border:1px solid var(--border);color:var(--text-dim);border-radius:99px;
-  padding:1px 7px;margin-top:3px;letter-spacing:.04em;text-transform:uppercase}
+/* ── MATRIX ── */
+.matrix-row-ui{display:flex;align-items:center;gap:14px;padding:14px 20px}
+.matrix-title{flex:1;font-size:.87rem;font-weight:500;color:var(--text)}
+.matrix-btn{background:#E6F9FF;border:1px solid var(--teal);border-radius:var(--r-xs);color:var(--teal-dark);font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;padding:5px 14px;cursor:pointer;transition:background .14s,color .14s}
+.matrix-btn:hover{background:var(--teal);color:#fff}
 
-/* COND BADGE */
-.cond-badge{font-size:.67rem;font-weight:600;padding:2px 7px;border-radius:99px;
-  background:var(--amber-bg);color:var(--amber);border:1px solid rgba(180,83,9,.18);
-  margin-left:5px;letter-spacing:.03em;white-space:nowrap;flex-shrink:0}
+/* ── EMPTY ── */
+.empty-state{text-align:center;padding:60px 0;color:var(--dim);font-size:.9rem}
 
-/* MATRIX STEP */
-.step-matrix{padding:0}
-.matrix-head{display:flex;align-items:center;gap:10px;padding:11px 18px;cursor:pointer;
-  user-select:none;transition:background .1s}
-.matrix-head:hover{background:var(--surface)}
-.matrix-title{flex:1;font-size:.87rem;font-weight:600;color:var(--text)}
-.matrix-open-btn{background:var(--accent-light);border:1px solid rgba(0,117,255,.3);border-radius:var(--r-xs);
-  color:var(--accent);font-family:'Plus Jakarta Sans',sans-serif;font-size:.75rem;font-weight:600;
-  padding:5px 13px;cursor:pointer;transition:background .14s,border-color .14s}
-.matrix-open-btn:hover{background:var(--accent);color:#fff}
-
-/* GROUP STEP */
-.step-group{padding:0}
-.group-head{display:flex;align-items:center;gap:10px;padding:11px 18px;cursor:pointer;
-  user-select:none;transition:background .1s}
-.group-head:hover{background:var(--surface)}
-.group-title{flex:1;font-size:.87rem;font-weight:600;color:var(--text)}
-.group-body{display:none;border-top:1px solid var(--border)}
-.step-group.g-open .group-body{display:block}
-.g-chev{color:var(--text-dim);transition:transform .2s;flex-shrink:0}
-.step-group.g-open .g-chev{transform:rotate(180deg)}
-.group-item{display:flex;align-items:center;gap:12px;padding:9px 18px 9px 30px;
-  border-bottom:1px solid var(--border);transition:background .1s}
-.group-item:last-child{border-bottom:none}
-.group-item:hover{background:var(--card-hover)}
-.group-item-cb{width:15px;height:15px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
-.group-item-title{flex:1;font-size:.84rem;font-weight:500;color:var(--text)}
-.group-item-btn{background:none;border:1px solid var(--border);border-radius:var(--r-xs);
-  color:var(--text-muted);font-family:'Plus Jakarta Sans',sans-serif;font-size:.73rem;font-weight:600;
-  padding:4px 10px;cursor:pointer;transition:border-color .14s,color .14s,background .14s}
-.group-item-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
-
-/* ─── MODAL ─── */
-.overlay{position:fixed;inset:0;background:rgba(13,17,23,.35);backdrop-filter:blur(4px);
-  z-index:500;display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .2s}
+/* ── MODAL ── */
+.overlay{position:fixed;inset:0;background:rgba(20,25,40,.4);backdrop-filter:blur(4px);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
 .overlay.show{opacity:1;pointer-events:all}
-.modal{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
-  width:500px;max-width:calc(100vw - 32px);max-height:82vh;display:flex;flex-direction:column;
-  box-shadow:var(--shadow-lg);transform:translateY(10px);transition:transform .22s ease;overflow:hidden}
+.modal{background:var(--card);border-radius:var(--r);width:480px;max-width:calc(100vw - 32px);max-height:78vh;display:flex;flex-direction:column;box-shadow:var(--shadow-md);transform:translateY(12px);transition:transform .22s;overflow:hidden}
 .overlay.show .modal{transform:translateY(0)}
-.modal-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;
-  border-bottom:1px solid var(--border);flex-shrink:0}
-.modal-title{font-family:'Bricolage Grotesque',sans-serif;font-size:.95rem;font-weight:700;color:var(--text)}
-.modal-x{background:none;border:1px solid var(--border);border-radius:var(--r-xs);
-  color:var(--text-muted);cursor:pointer;font-size:.85rem;width:28px;height:28px;
-  display:flex;align-items:center;justify-content:center;transition:background .12s,color .12s}
-.modal-x:hover{background:var(--surface);color:var(--text)}
-.modal-body{overflow-y:auto;flex:1;padding:6px 0}
-.modal-row{display:flex;align-items:center;gap:12px;padding:10px 20px;
-  border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
+.modal-hd{display:flex;align-items:center;justify-content:space-between;padding:15px 20px;border-bottom:1px solid var(--border);flex-shrink:0}
+.modal-title{font-size:.95rem;font-weight:700;color:var(--text)}
+.modal-x{background:none;border:1px solid var(--border);border-radius:var(--r-xs);color:var(--muted);cursor:pointer;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:background .12s}
+.modal-x:hover{background:var(--content)}
+.modal-body{overflow-y:auto;flex:1}
+.modal-row{display:flex;align-items:center;gap:12px;padding:11px 20px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
 .modal-row:last-child{border-bottom:none}
-.modal-row:hover{background:var(--surface)}
-.modal-cb{width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
-.modal-label{font-size:.84rem;font-weight:500;color:var(--text);flex:1}
-.modal-key{font-size:.68rem;font-family:monospace;color:var(--text-dim)}
+.modal-row:hover{background:var(--content)}
+.modal-lbl{font-size:.85rem;font-weight:500;color:var(--text);flex:1}
+.modal-key{font-size:.67rem;font-family:monospace;color:var(--dim)}
 .modal-ft{padding:12px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;flex-shrink:0}
-.modal-done-btn{background:var(--accent);color:#fff;border:none;border-radius:var(--r-sm);
-  font-family:'Plus Jakarta Sans',sans-serif;font-size:.85rem;font-weight:600;
-  padding:8px 24px;cursor:pointer;transition:background .14s}
-.modal-done-btn:hover{background:var(--accent-hover)}
+.modal-done{background:var(--teal);color:#fff;border:none;border-radius:var(--r-sm);font-family:'Inter',sans-serif;font-size:.85rem;font-weight:600;padding:8px 24px;cursor:pointer;transition:background .14s}
+.modal-done:hover{background:var(--teal-dark)}
 
-/* ─── TOAST ─── */
-.toasts{position:fixed;bottom:24px;right:24px;z-index:1000;display:flex;flex-direction:column;gap:8px;pointer-events:none}
-.toast{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);
-  border-radius:var(--r-sm);padding:11px 15px;min-width:240px;max-width:320px;pointer-events:all;
-  box-shadow:var(--shadow-md);animation:tIn .22s ease forwards}
-.toast.out{animation:tOut .22s ease forwards}
-.toast-title{font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:2px}
-.toast-url{font-size:.72rem;color:var(--text-dim);font-family:monospace;word-break:break-all}
-@keyframes tIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-@keyframes tOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(8px)}}
+/* ── TOAST ── */
+.toasts{position:fixed;bottom:20px;right:20px;z-index:1000;display:flex;flex-direction:column;gap:7px;pointer-events:none}
+.toast{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--teal);border-radius:var(--r-sm);padding:9px 13px;min-width:200px;max-width:280px;box-shadow:var(--shadow-md);animation:tIn .2s ease forwards}
+.toast.out{animation:tOut .2s ease forwards}
+.toast-title{font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:1px}
+.toast-url{font-size:.69rem;color:var(--dim);font-family:monospace;word-break:break-all}
+@keyframes tIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes tOut{from{opacity:1}to{opacity:0}}
 
-/* ─── SCROLL ─── */
-::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
-::-webkit-scrollbar-thumb:hover{background:var(--text-dim)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px}
 </style>
 </head>
 <body>
@@ -281,577 +166,537 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 <div class="overlay" id="matrixOverlay">
   <div class="modal">
     <div class="modal-hd">
-      <span class="modal-title" id="matrixModalTitle">Матрица</span>
+      <span class="modal-title" id="matrixTitle">Матрица</span>
       <button class="modal-x" id="matrixClose">✕</button>
     </div>
-    <div class="modal-body" id="matrixModalBody"></div>
-    <div class="modal-ft"><button class="modal-done-btn" id="matrixDone">Готово</button></div>
+    <div class="modal-body" id="matrixBody"></div>
+    <div class="modal-ft"><button class="modal-done" id="matrixDone">Готово</button></div>
   </div>
 </div>
 
-<div class="shell">
-  <div class="page-hd">
-    <h1 class="page-title">Сценарии настройки CRM</h1>
-    <p class="page-sub">Пошаговая настройка системы — воронки, поля, автоматизация, интеграции и контроль.</p>
-  </div>
-
-  <div class="controls">
-    <div class="search-wrap">
-      <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input class="search-inp" id="searchInp" type="text" placeholder="Поиск по названию или шагам…">
+<div class="drawer">
+  <aside class="sidebar">
+    <div class="sidebar-hd">
+      <div class="sidebar-top-title">Настройки CRM</div>
+      <div class="search-wrap">
+        <svg class="search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input class="search-inp" id="searchInp" type="text" placeholder="Поиск…">
+      </div>
     </div>
-    <div class="tabs">
-      <button class="tab active" data-tab="all">Все</button>
-      <button class="tab" data-tab="lead">Лиды</button>
-      <button class="tab" data-tab="deal">Сделки</button>
-      <button class="tab" data-tab="contact">Контакты</button>
-      <button class="tab" data-tab="company">Компании</button>
-      <button class="tab" data-tab="invoice">Счета</button>
-      <button class="tab" data-tab="quote">Предложения</button>
+    <div class="entity-filter" id="entityFilter"></div>
+    <nav class="sidebar-nav" id="sidebarNav"></nav>
+  </aside>
+
+  <div class="content">
+    <div class="content-hd">
+      <div class="content-title" id="contentTitle">Выберите раздел</div>
+      <div class="content-sub" id="contentSub"></div>
+    </div>
+    <div class="content-body" id="contentBody">
+      <div class="empty-state">Выберите сценарий в меню слева</div>
     </div>
   </div>
-
-  <div class="stats-row" id="statsRow"></div>
-  <div class="list" id="list"></div>
-  <div class="empty" id="emptyMsg" style="display:none">Ничего не найдено</div>
 </div>
 
 <script>
-const DATA = {"id":"crm_settings_scenarios_v1_2","title":"Сценарии настройки CRM","search":{"placeholder":"Поиск по названию или шагам…"},"tabs":[{"id":"all","title":"Все"},{"id":"not_started","title":"Не начат"},{"id":"in_progress","title":"В процессе"},{"id":"done","title":"Завершён"}],"scenarios":[{"id":"start_from_scratch","title":"Запустить CRM с нуля","subtitle":"Базовые данные, воронки и реквизиты, чтобы CRM стала рабочей.","status":"not_started","steps":[{"id":"directories","type":"link","title":"Справочники","href":"/crm/configs/status/"},{"id":"currencies","type":"link","title":"Валюты","href":"/crm/configs/currency/"},{"id":"locations","type":"link","title":"Местоположения","href":"/crm/configs/locations/"},{"id":"taxes","type":"link","title":"Налоги","href":"/crm/configs/tax/"},{"id":"measures","type":"link","title":"Единицы измерения","href":"/crm/configs/measure/"},{"id":"requisites_templates","type":"link","title":"Шаблоны реквизитов","href":"/crm/configs/preset/"},{"id":"my_companies_requisites","type":"link","title":"Реквизиты ваших компаний","href":"/crm/configs/mycompany/"},{"id":"pipelines","type":"link","title":"Воронки продаж","href":"/crm/configs/deal_category/"}]},{"id":"data_structure","title":"Настроить структуру данных","subtitle":"Поля, свойства и аналитика под ваш бизнес.","status":"not_started","steps":[{"id":"user_fields","type":"link","title":"Пользовательские поля","href":"/crm/configs/fields/"},{"id":"product_props","type":"link","title":"Свойства товаров","href":"/crm/configs/productprops/"},{"id":"analytics_reports","type":"link","title":"Аналитические отчёты","href":"/crm/configs/widget/"}]},{"id":"ui_and_behavior","title":"Интерфейс и поведение CRM","subtitle":"Карточки, дефолтные виды, доступность сущностей, уведомления.","status":"not_started","steps":[{"id":"general_display_settings","type":"settings_group","title":"Общие настройки (отображение и дефолты)","source":{"type":"legacy_form","href":"/crm/configs/config/","tab":"tab_main"},"settings":[{"id":"ENABLE_SLIDER","type":"toggle","title":"Включить новую карточку CRM","name":"ENABLE_SLIDER"},{"id":"ENABLE_USER_NAME_SORTING","type":"toggle","title":"Включить сортировку по имени пользователя","name":"ENABLE_USER_NAME_SORTING"},{"id":"LEAD_OPENED","type":"toggle","title":"Лиды: доступен для всех (по умолчанию)","name":"LEAD_OPENED"},{"id":"LEAD_DEFAULT_LIST_VIEW","type":"select","title":"Лиды: вид списка (по умолчанию)","name":"LEAD_DEFAULT_LIST_VIEW","options":[{"value":"1","label":"Список"},{"value":"3","label":"Канбан лидов"}]},{"id":"CONTACT_OPENED","type":"toggle","title":"Контакты: доступен для всех (по умолчанию)","name":"CONTACT_OPENED"},{"id":"CONTACT_DEFAULT_LIST_VIEW","type":"select","title":"Контакты: вид списка (по умолчанию)","name":"CONTACT_DEFAULT_LIST_VIEW","options":[{"value":"1","label":"Список"}]},{"id":"COMPANY_OPENED","type":"toggle","title":"Компании: доступна для всех (по умолчанию)","name":"COMPANY_OPENED"},{"id":"COMPANY_DEFAULT_LIST_VIEW","type":"select","title":"Компании: вид списка (по умолчанию)","name":"COMPANY_DEFAULT_LIST_VIEW","options":[{"value":"1","label":"Список"}]},{"id":"DEAL_OPENED","type":"toggle","title":"Сделки: доступна для всех (по умолчанию)","name":"DEAL_OPENED"},{"id":"DEAL_DEFAULT_LIST_VIEW","type":"select","title":"Сделки: вид списка (по умолчанию)","name":"DEAL_DEFAULT_LIST_VIEW","options":[{"value":"1","label":"Список"},{"value":"3","label":"Канбан сделок"}]},{"id":"REFRESH_DEAL_CLOSEDATE","type":"toggle","title":"Сделки: обновлять дату завершения при переходе в финальную стадию","name":"REFRESH_DEAL_CLOSEDATE"},{"id":"INVOICE_DEFAULT_LIST_VIEW","type":"select","title":"Счета: вид списка (по умолчанию)","name":"INVOICE_DEFAULT_LIST_VIEW","options":[{"value":"1","label":"Список"},{"value":"3","label":"Канбан счетов"}]},{"id":"QUOTE_OPENED","type":"toggle","title":"Предложения: доступно для всех (по умолчанию)","name":"QUOTE_OPENED"},{"id":"NOTIFICATIONS_SENDER","type":"select","title":"Нотификации для клиентов","name":"NOTIFICATIONS_SENDER","options":[{"value":"auto","label":"Автоматический выбор"},{"value":"bitrix24","label":"Битрикс24"},{"value":"sms_provider","label":"СМС провайдер"}]}]}]},{"id":"automation","title":"Автоматизировать продажи","subtitle":"Роботы, бизнес-процессы и автосценарии (включая повторные продажи).","status":"not_started","steps":[{"id":"bizproc","type":"link","title":"Бизнес-процессы","href":"/crm/configs/bp/"},{"id":"lead_automation","type":"link","title":"Роботы: Лиды","href":"/crm/lead/automation/0/"},{"id":"deal_automation","type":"link","title":"Роботы: Сделки","href":"/crm/deal/automation/0/"},{"id":"conversion_and_repeat_sales","type":"settings_group","title":"Автосоздание и повторные продажи","source":{"type":"legacy_form","href":"/crm/configs/config/","tab":"tab_main"},"settings":[{"id":"CONVERSION_ENABLE_AUTOCREATION","type":"toggle","title":"Создавать элементы при конвертации без участия пользователя","name":"CONVERSION_ENABLE_AUTOCREATION"},{"id":"AUTO_GEN_RC","type":"toggle","title":"Включить автоматическую регистрацию повторных продаж","name":"AUTO_GEN_RC"},{"id":"AUTO_USING_FINISHED_LEAD","type":"toggle","title":"Включить устаревший сценарий создания лидов","name":"AUTO_USING_FINISHED_LEAD","visibility":{"when":[{"settingId":"AUTO_GEN_RC","operator":"equals","value":false}]}}]}]},{"id":"activities_calendar","title":"Дела и календарь","subtitle":"Счётчики, календарь, переносы ответственных и автозакрытие дел при конвертации.","status":"not_started","steps":[{"id":"activities_settings","type":"settings_group","title":"Настройки дел","source":{"type":"legacy_form","href":"/crm/configs/config/","tab":"tab_activity_config"},"settings":[{"id":"ENABLE_CREATE_CALENDAR_EVENT_FOR_CALL","type":"toggle","title":"Создавать событие календаря для звонка","name":"ENABLE_CREATE_CALENDAR_EVENT_FOR_CALL"},{"id":"CALENDAR_DISPLAY_COMPLETED_CALLS","type":"toggle","title":"Сохранять завершённые звонки в календаре","name":"CALENDAR_DISPLAY_COMPLETED_CALLS"},{"id":"CALENDAR_DISPLAY_COMPLETED_MEETINGS","type":"toggle","title":"Сохранять завершённые встречи в календаре","name":"CALENDAR_DISPLAY_COMPLETED_MEETINGS"},{"id":"CALENDAR_KEEP_REASSIGNED_CALLS","type":"toggle","title":"Сохранять переназначенные звонки в календаре","name":"CALENDAR_KEEP_REASSIGNED_CALLS"},{"id":"CALENDAR_KEEP_REASSIGNED_MEETINGS","type":"toggle","title":"Сохранять переназначенные встречи в календаре","name":"CALENDAR_KEEP_REASSIGNED_MEETINGS"},{"id":"KEEP_UNBOUND_TASKS","type":"toggle","title":"Сохранять задачи при удалении элементов CRM","name":"KEEP_UNBOUND_TASKS"},{"id":"ACTIVITY_RESPONSIBLE_COUNTERS","type":"select","title":"Режим работы счётчиков","name":"ACTIVITY_RESPONSIBLE_COUNTERS","options":[{"value":"act","label":"По ответственному за дело"},{"value":"entity","label":"По ответственному за элемент"}]},{"id":"REMOVE_ENTITY_BADGES_INTERVAL_DAYS","type":"select","title":"Скрывать статус дела на карточке (Канбан/Список)","name":"REMOVE_ENTITY_BADGES_INTERVAL_DAYS","options":[{"value":"30","label":"30 дней"},{"value":"60","label":"60 дней"},{"value":"90","label":"90 дней"}]}]},{"id":"complete_activity_on_convert","type":"matrix","title":"Автоматически закрывать дела при конвертации лидов","source":{"type":"legacy_form","href":"/crm/configs/config/","tab":"tab_activity_config"},"items":[{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_TODO","title":"Дело","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_TODO"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_MEETING","title":"Встреча","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_MEETING"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_TASKS","title":"Задача","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_TASKS"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_VOXIMPLANT_CALL","title":"Звонок","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_VOXIMPLANT_CALL"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CALL_LIST","title":"Обзвон","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CALL_LIST"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_EMAIL","title":"E-mail","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_EMAIL"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_IMOPENLINES_SESSION","title":"Открытые линии","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_IMOPENLINES_SESSION"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_WEBFORM","title":"CRM-форма","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_WEBFORM"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_EXTERNAL_CHANNEL","title":"Внешний канал","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_EXTERNAL_CHANNEL"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_REQUEST","title":"Задание","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_REQUEST"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_DELIVERY","title":"Доставка","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_DELIVERY"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_CALL_TRACKER","title":"Трекер звонков","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_CALL_TRACKER"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_STORE_DOCUMENT","title":"Проведение документа","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_STORE_DOCUMENT"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_DOCUMENT","title":"Документ","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_DOCUMENT"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_PAYMENT","title":"Оплата","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_PAYMENT"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_REPEAT_SALE","title":"Повторная продажа","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_REPEAT_SALE"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_BOOKING","title":"Бронирование","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_BOOKING"},{"id":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_WAIT_LIST_ITEM","title":"Лист ожидания","type":"toggle","name":"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_WAIT_LIST_ITEM"}]}]},{"id":"mail_in_crm","title":"Почта в CRM","subtitle":"Трекер, шаблоны и правила для входящих/исходящих писем.","status":"not_started","steps":[{"id":"email_tracker","type":"link","title":"Email-трекер","href":"/mail/"},{"id":"mail_templates","type":"link","title":"Почтовые шаблоны","href":"/crm/configs/mailtemplate/"},{"id":"incoming_outgoing_rules","type":"settings_group","title":"Правила писем в CRM","source":{"type":"legacy_form","href":"/crm/configs/config/","tab":"tab_activity_config"},"settings":[{"id":"MARK_FORWARDED_EMAIL_AS_OUTGOING","type":"toggle","title":"Регистрировать пересланные письма сотрудников как «Письма клиенту»","name":"MARK_FORWARDED_EMAIL_AS_OUTGOING"},{"id":"ENABLE_UNCONNECTED_RECIPIENTS","type":"toggle","title":"Разрешить отправлять письма на любые адреса","name":"ENABLE_UNCONNECTED_RECIPIENTS"},{"id":"OUTGOING_EMAIL_OWNER_TYPE","type":"select","title":"При отправке на адрес не из CRM создавать","name":"OUTGOING_EMAIL_OWNER_TYPE","options":[{"value":"1","label":"Лид"},{"value":"3","label":"Контакт"}],"visibility":{"when":[{"settingId":"ENABLE_UNCONNECTED_RECIPIENTS","operator":"equals","value":true}]}},{"id":"SERVICE_CODE_ALLOCATION","type":"select","title":"Служебный код","name":"SERVICE_CODE_ALLOCATION","options":[{"value":"2","label":"Размещать в сообщении"},{"value":"1","label":"Размещать в теме"},{"value":"0","label":"Не использовать"}]},{"id":"ENABLE_B24_EMAIL_SIGNATURE","type":"toggle","title":"Добавлять подпись «Отправлено из Битрикс24»","name":"ENABLE_B24_EMAIL_SIGNATURE"}]}]},{"id":"integrations_and_channels","title":"Подключить интеграции и каналы","subtitle":"1С, SMS-провайдеры, WhatsApp-коннекторы и лимиты.","status":"not_started","steps":[{"id":"external_sale","type":"link","title":"1С-Битрикс","href":"/crm/configs/external_sale/"},{"id":"exchange_1c","type":"link","title":"Интеграция с «1С:Предприятие»","href":"/crm/configs/exch1c/"},{"id":"sms_providers","type":"group","title":"СМС и мессенджеры","items":[{"id":"sms_twilio","type":"link","title":"СМС через twilio.com","href":"/crm/configs/sms/?sender=twilio"},{"id":"sms_smsru","type":"link","title":"СМС через sms.ru","href":"/crm/configs/sms/?sender=smsru"},{"id":"sms_assistent","type":"link","title":"СМС через sms-assistent.by","href":"/crm/configs/sms/?sender=smsastby"},{"id":"sms_edna","type":"link","title":"СМС через sms.edna.ru","href":"/crm/configs/sms/?sender=smsednaru"},{"id":"whatsapp_edna","type":"link","title":"WhatsApp (edna)","href":"/contact_center/connector/?ID=whatsappbyedna"},{"id":"wazzup","type":"link","title":"Wazzup","href":"/contact_center/connector/?ID=wazzup"},{"id":"sms_limits","type":"link","title":"Лимиты для СМС","href":"/crm/configs/sms/?page=limits"},{"id":"sms_apps","type":"link","title":"Приложения для СМС","href":"/market/category/crm_robot_sms/"}]}]},{"id":"documents_payments_and_numeration","title":"Документы и оплата","subtitle":"Способы оплаты, приложения, нумерация документов/счетов/предложений.","status":"not_started","steps":[{"id":"payment_systems","type":"link","title":"Способы оплаты","href":"/crm/configs/ps/"},{"id":"payment_market","type":"link","title":"Маркетплейс (платежи)","href":"/market/category/payment/"},{"id":"numerators","type":"group","title":"Нумератор","items":[{"id":"doc_numerators","type":"link","title":"Для документов","href":"/crm/configs/document_numerators/"},{"id":"numerator_invoices","type":"link","title":"Для счетов","href":"/crm/configs/document_numerators/?type=CRM_SMART_INVOICE"},{"id":"numerator_quotes","type":"link","title":"Для предложений","href":"/crm/configs/document_numerators/?type=CRM_QUOTE"}]}]},{"id":"access_and_rights","title":"Раздать доступы","subtitle":"Права доступа к CRM и операциям.","status":"not_started","steps":[{"id":"crm_permissions","type":"link","title":"Права доступа","href":"/crm/perms/all/?st%5Btool%5D=crm&st%5Bc_section%5D=crm_settings&st%5Bp1%5D=crmMode_classic&st%5Bevent%5D=settings_view&st%5Bcategory%5D=settings_operations"}]},{"id":"marketplace_and_industry_scenarios","title":"Маркетплейс и отраслевые сценарии","subtitle":"Приложения для CRM, миграции и готовые сценарии.","status":"not_started","steps":[{"id":"market_crm_apps","type":"link","title":"Приложения для CRM","href":"/market/?placement=crm"},{"id":"market_migration","type":"link","title":"Миграция из других CRM","href":"/market/collection/migration_crm/"},{"id":"industry_scenarios","type":"link","title":"Отраслевые сценарии","href":"/marketplace/configuration/placement/crm_settings/"}]},{"id":"data_quality_and_formats","title":"Контроль качества данных","subtitle":"Дубликаты, форматирование, устаревшие справочники, исключения.","status":"not_started","steps":[{"id":"dup_control","type":"settings_group","title":"Контроль дубликатов","source":{"type":"legacy_form","href":"/crm/configs/config/","tab":"tab_dup_control"},"settings":[{"id":"ENABLE_LEAD_DUP_CONTROL","type":"toggle","title":"Включить контроль дубликатов для лидов","name":"ENABLE_LEAD_DUP_CONTROL"},{"id":"ENABLE_CONTACT_DUP_CONTROL","type":"toggle","title":"Включить контроль дубликатов для контактов","name":"ENABLE_CONTACT_DUP_CONTROL"},{"id":"ENABLE_COMPANY_DUP_CONTROL","type":"toggle","title":"Включить контроль дубликатов для компаний","name":"ENABLE_COMPANY_DUP_CONTROL"}]},{"id":"formatting","type":"settings_group","title":"Форматирование","source":{"type":"legacy_form","href":"/crm/configs/config/","tab":"tab_format"},"settings":[{"id":"PERSON_NAME_FORMAT_ID","type":"select","title":"Формат имени клиента (лиды и контакты)","name":"PERSON_NAME_FORMAT_ID","options":[{"value":"1","label":"[по умолчанию]"},{"value":"6","label":"г-н Петров"},{"value":"2","label":"Иван Петров"},{"value":"3","label":"Иван Васильевич Петров"},{"value":"4","label":"Петров Иван"},{"value":"5","label":"Петров Иван Васильевич"}]},{"id":"CALLTO_FORMAT","type":"select","title":"Формат вывода ссылок callto","name":"CALLTO_FORMAT","options":[{"value":"1","label":"callto://74952128506"},{"value":"2","label":"callto:74952128506"},{"value":"4","label":"вызов через телефонию Битрикс24"},{"value":"3","label":"свой формат"}]},{"id":"CALLTO_URL_TEMPLATE","type":"text","title":"Шаблон URL","name":"CALLTO_URL_TEMPLATE","visibility":{"when":[{"settingId":"CALLTO_FORMAT","operator":"equals","value":"3"}]}},{"id":"CALLTO_CLICK_HANDLER","type":"textarea","title":"Обработчик события onclick","name":"CALLTO_CLICK_HANDLER","visibility":{"when":[{"settingId":"CALLTO_FORMAT","operator":"equals","value":"3"}]}},{"id":"CALLTO_NORMALIZE_NUMBER","type":"toggle","title":"Преобразовать номер к международному формату набора","name":"CALLTO_NORMALIZE_NUMBER"},{"id":"ENABLE_SIMPLE_TIME_FORMAT","type":"toggle","title":"Показывать время создания/изменения в упрощённом виде","name":"ENABLE_SIMPLE_TIME_FORMAT"},{"id":"ENTITY_ADDRESS_FORMAT_ID","type":"readonly","title":"Формат почтового адреса клиента","name":"ENTITY_ADDRESS_FORMAT_ID","note":"Изменить формат адреса можно в настройках портала"}]},{"id":"status_deprecated","type":"settings_group","title":"Справочники","source":{"type":"legacy_form","href":"/crm/configs/config/","tab":"tab_status_config"},"settings":[{"id":"ENABLE_DEPRECATED_STATUSES","type":"toggle","title":"Показывать устаревшие справочники","name":"ENABLE_DEPRECATED_STATUSES"}]},{"id":"exclusion_list","type":"link","title":"Список исключений","href":"/crm/configs/exclusion/"}]},{"id":"health_and_recovery","title":"Проверить здоровье CRM","subtitle":"История, аудит, корзина и место на диске.","status":"not_started","steps":[{"id":"volume","type":"link","title":"Чем занято место","href":"/crm/configs/volume/"},{"id":"history","type":"settings_group","title":"История (события)","source":{"type":"legacy_form","href":"/crm/configs/config/","tab":"tab_history"},"settings":[{"id":"ENABLE_EXPORT_EVENT","type":"toggle","title":"Регистрировать события экспорта","name":"ENABLE_EXPORT_EVENT"},{"id":"ENABLE_VIEW_EVENT","type":"toggle","title":"Регистрировать события просмотра","name":"ENABLE_VIEW_EVENT"},{"id":"VIEW_EVENT_GROUPING_INTERVAL","type":"text","title":"Интервал группировки событий просмотра (мин)","name":"VIEW_EVENT_GROUPING_INTERVAL"},{"id":"ENABLE_LEAD_DELETION_EVENT","type":"toggle","title":"Регистрировать события удаления лидов","name":"ENABLE_LEAD_DELETION_EVENT"},{"id":"ENABLE_CONTACT_DELETION_EVENT","type":"toggle","title":"Регистрировать события удаления контактов","name":"ENABLE_CONTACT_DELETION_EVENT"},{"id":"ENABLE_COMPANY_DELETION_EVENT","type":"toggle","title":"Регистрировать события удаления компаний","name":"ENABLE_COMPANY_DELETION_EVENT"},{"id":"ENABLE_DEAL_DELETION_EVENT","type":"toggle","title":"Регистрировать события удаления сделок","name":"ENABLE_DEAL_DELETION_EVENT"},{"id":"ENABLE_QUOTE_DELETION_EVENT","type":"toggle","title":"Регистрировать события удаления предложений","name":"ENABLE_QUOTE_DELETION_EVENT"}]},{"id":"recycle_bin","type":"settings_group","title":"Корзина","source":{"type":"legacy_form","href":"/crm/configs/config/","tab":"tab_recycle_bin_config"},"settings":[{"id":"ENABLE_LEAD_RECYCLE_BIN","type":"toggle","title":"Включить корзину для лидов","name":"ENABLE_LEAD_RECYCLE_BIN"},{"id":"ENABLE_CONTACT_RECYCLE_BIN","type":"toggle","title":"Включить корзину для контактов","name":"ENABLE_CONTACT_RECYCLE_BIN"},{"id":"ENABLE_COMPANY_RECYCLE_BIN","type":"toggle","title":"Включить корзину для компаний","name":"ENABLE_COMPANY_RECYCLE_BIN"},{"id":"ENABLE_DEAL_RECYCLE_BIN","type":"toggle","title":"Включить корзину для сделок","name":"ENABLE_DEAL_RECYCLE_BIN"}]}]},{"id":"apps_runtime_rules","title":"Правила для приложений (REST)","subtitle":"Системные ограничения интеграций через приложения.","status":"not_started","steps":[{"id":"rest_rules","type":"settings_group","title":"Маркетплейс: проверка обязательных полей","source":{"type":"legacy_form","href":"/crm/configs/config/","tab":"tab_rest"},"settings":[{"id":"ENABLE_REST_REQ_USER_FIELD_CHECK","type":"toggle","title":"Проверять наличие обязательных пользовательских полей","name":"ENABLE_REST_REQ_USER_FIELD_CHECK"}]}]}]};
+/* ══ DATA ══ */
+const SCENARIOS = [
+  {id:"start_from_scratch", short:"С нуля", title:"Запустить CRM с нуля", subtitle:"Базовые данные, воронки и реквизиты, чтобы CRM стала рабочей.", icon:"rocket", linksTitle:"Базовая конфигурация",
+   steps:[
+    {id:"directories",type:"link",title:"Справочники",desc:"Статусы, источники, типы и другие системные справочники CRM",href:"/crm/configs/status/"},
+    {id:"currencies",type:"link",title:"Валюты",desc:"Настройка валют и курсов для сделок и счетов",href:"/crm/configs/currency/"},
+    {id:"locations",type:"link",title:"Местоположения",desc:"Справочник стран, регионов и городов",href:"/crm/configs/locations/"},
+    {id:"taxes",type:"link",title:"Налоги",desc:"Налоговые ставки, применяемые к товарам и услугам",href:"/crm/configs/tax/"},
+    {id:"measures",type:"link",title:"Единицы измерения",desc:"Единицы измерения для товаров в каталоге",href:"/crm/configs/measure/"},
+    {id:"requisites_templates",type:"link",title:"Шаблоны реквизитов",desc:"Шаблоны для заполнения реквизитов клиентов и компаний",href:"/crm/configs/preset/"},
+    {id:"my_companies_requisites",type:"link",title:"Реквизиты ваших компаний",desc:"Банковские и юридические реквизиты вашей организации",href:"/crm/configs/mycompany/"},
+    {id:"pipelines",type:"link",title:"Воронки продаж",desc:"Этапы и воронки для сделок, настройка стадий",href:"/crm/configs/deal_category/"}
+  ]},
+  {id:"data_structure", short:"Структура данных", title:"Настроить структуру данных", subtitle:"Поля, свойства и аналитика под ваш бизнес.", icon:"layers", linksTitle:"Поля и аналитика",
+   steps:[
+    {id:"user_fields",type:"link",title:"Пользовательские поля",desc:"Добавление и настройка дополнительных полей для сущностей CRM",href:"/crm/configs/fields/"},
+    {id:"product_props",type:"link",title:"Свойства товаров",desc:"Характеристики и атрибуты товаров в каталоге",href:"/crm/configs/productprops/"},
+    {id:"analytics_reports",type:"link",title:"Аналитические отчёты",desc:"Виджеты и отчёты для анализа продаж и эффективности",href:"/crm/configs/widget/"}
+  ]},
+  {id:"ui_and_behavior", short:"Интерфейс", title:"Интерфейс и поведение CRM", subtitle:"Карточки, дефолтные виды, доступность сущностей, уведомления.", icon:"layout",
+   steps:[
+    {id:"general_display_settings",type:"settings_group",title:"Отображение и дефолты",settings:[
+      {id:"ENABLE_SLIDER",type:"toggle",title:"Включить новую карточку CRM",desc:"Открывать карточку лида, сделки и контакта в новом слайдере вместо отдельной страницы",name:"ENABLE_SLIDER"},
+      {id:"ENABLE_USER_NAME_SORTING",type:"toggle",title:"Включить сортировку по имени пользователя",desc:"Сортировать ответственных по имени, а не по идентификатору",name:"ENABLE_USER_NAME_SORTING"},
+      {id:"LEAD_OPENED",type:"toggle",title:"Лиды: доступен для всех (по умолчанию)",desc:"Новые сотрудники получают доступ к разделу «Лиды» по умолчанию",name:"LEAD_OPENED"},
+      {id:"LEAD_DEFAULT_LIST_VIEW",type:"select",title:"Лиды: вид списка (по умолчанию)",desc:"Какой вид открывается при переходе в раздел лидов",name:"LEAD_DEFAULT_LIST_VIEW",options:[{value:"1",label:"Список"},{value:"3",label:"Канбан лидов"}]},
+      {id:"CONTACT_OPENED",type:"toggle",title:"Контакты: доступен для всех (по умолчанию)",desc:"Новые сотрудники получают доступ к разделу «Контакты» по умолчанию",name:"CONTACT_OPENED"},
+      {id:"CONTACT_DEFAULT_LIST_VIEW",type:"select",title:"Контакты: вид списка (по умолчанию)",desc:"Какой вид открывается при переходе в раздел контактов",name:"CONTACT_DEFAULT_LIST_VIEW",options:[{value:"1",label:"Список"}]},
+      {id:"COMPANY_OPENED",type:"toggle",title:"Компании: доступна для всех (по умолчанию)",desc:"Новые сотрудники получают доступ к разделу «Компании» по умолчанию",name:"COMPANY_OPENED"},
+      {id:"COMPANY_DEFAULT_LIST_VIEW",type:"select",title:"Компании: вид списка (по умолчанию)",desc:"Какой вид открывается при переходе в раздел компаний",name:"COMPANY_DEFAULT_LIST_VIEW",options:[{value:"1",label:"Список"}]},
+      {id:"DEAL_OPENED",type:"toggle",title:"Сделки: доступна для всех (по умолчанию)",desc:"Новые сотрудники получают доступ к разделу «Сделки» по умолчанию",name:"DEAL_OPENED"},
+      {id:"DEAL_DEFAULT_LIST_VIEW",type:"select",title:"Сделки: вид списка (по умолчанию)",desc:"Какой вид открывается при переходе в раздел сделок",name:"DEAL_DEFAULT_LIST_VIEW",options:[{value:"1",label:"Список"},{value:"3",label:"Канбан сделок"}]},
+      {id:"REFRESH_DEAL_CLOSEDATE",type:"toggle",title:"Сделки: обновлять дату завершения при переходе в финальную стадию",desc:"Автоматически проставлять текущую дату при переводе сделки в успешную или провальную стадию",name:"REFRESH_DEAL_CLOSEDATE"},
+      {id:"INVOICE_DEFAULT_LIST_VIEW",type:"select",title:"Счета: вид списка (по умолчанию)",desc:"Какой вид открывается при переходе в раздел счетов",name:"INVOICE_DEFAULT_LIST_VIEW",options:[{value:"1",label:"Список"},{value:"3",label:"Канбан счетов"}]},
+      {id:"QUOTE_OPENED",type:"toggle",title:"Предложения: доступно для всех (по умолчанию)",desc:"Новые сотрудники получают доступ к разделу «Предложения» по умолчанию",name:"QUOTE_OPENED"},
+      {id:"NOTIFICATIONS_SENDER",type:"select",title:"Нотификации для клиентов",desc:"Канал отправки автоматических уведомлений клиентам из CRM",name:"NOTIFICATIONS_SENDER",options:[{value:"auto",label:"Автоматический выбор"},{value:"bitrix24",label:"Битрикс24"},{value:"sms_provider",label:"СМС провайдер"}]}
+    ]}
+  ]},
+  {id:"automation", short:"Автоматизация", title:"Автоматизировать продажи", subtitle:"Роботы, бизнес-процессы и автосценарии (включая повторные продажи).", icon:"zap", linksTitle:"Роботы и бизнес-процессы",
+   steps:[
+    {id:"bizproc",type:"link",title:"Бизнес-процессы",desc:"Настройка бизнес-процессов, привязанных к элементам CRM",href:"/crm/configs/bp/"},
+    {id:"lead_automation",type:"link",title:"Роботы: Лиды",desc:"Автоматические действия по триггерам на стадиях лидов",href:"/crm/lead/automation/0/"},
+    {id:"deal_automation",type:"link",title:"Роботы: Сделки",desc:"Автоматические действия по триггерам на стадиях сделок",href:"/crm/deal/automation/0/"},
+    {id:"conversion_and_repeat_sales",type:"settings_group",title:"Автосоздание и повторные продажи",settings:[
+      {id:"CONVERSION_ENABLE_AUTOCREATION",type:"toggle",title:"Создавать элементы при конвертации без участия пользователя",desc:"При конвертации лида система автоматически создаст сделку, контакт и компанию без подтверждения менеджера",name:"CONVERSION_ENABLE_AUTOCREATION"},
+      {id:"AUTO_GEN_RC",type:"toggle",title:"Включить автоматическую регистрацию повторных продаж",desc:"При обращении существующего клиента система автоматически создаст повторный лид или сделку",name:"AUTO_GEN_RC"},
+      {id:"AUTO_USING_FINISHED_LEAD",type:"toggle",title:"Включить устаревший сценарий создания лидов",desc:"Использовать старый механизм создания лидов при повторных продажах (не рекомендуется)",name:"AUTO_USING_FINISHED_LEAD",visibility:{when:[{settingId:"AUTO_GEN_RC",operator:"equals",value:false}]}}
+    ]}
+  ]},
+  {id:"activities_calendar", short:"Дела и календарь", title:"Дела и календарь", subtitle:"Счётчики, календарь, переносы ответственных и автозакрытие дел при конвертации.", icon:"calendar",
+   steps:[
+    {id:"activities_settings",type:"settings_group",title:"Настройки дел",settings:[
+      {id:"ENABLE_CREATE_CALENDAR_EVENT_FOR_CALL",type:"toggle",title:"Создавать событие календаря для звонка",desc:"При планировании звонка автоматически добавлять событие в календарь ответственного",name:"ENABLE_CREATE_CALENDAR_EVENT_FOR_CALL"},
+      {id:"CALENDAR_DISPLAY_COMPLETED_CALLS",type:"toggle",title:"Сохранять завершённые звонки в календаре",desc:"Не удалять из календаря события звонков после их завершения",name:"CALENDAR_DISPLAY_COMPLETED_CALLS"},
+      {id:"CALENDAR_DISPLAY_COMPLETED_MEETINGS",type:"toggle",title:"Сохранять завершённые встречи в календаре",desc:"Не удалять из календаря события встреч после их завершения",name:"CALENDAR_DISPLAY_COMPLETED_MEETINGS"},
+      {id:"CALENDAR_KEEP_REASSIGNED_CALLS",type:"toggle",title:"Сохранять переназначенные звонки в календаре",desc:"Оставлять событие в календаре при смене ответственного за звонок",name:"CALENDAR_KEEP_REASSIGNED_CALLS"},
+      {id:"CALENDAR_KEEP_REASSIGNED_MEETINGS",type:"toggle",title:"Сохранять переназначенные встречи в календаре",desc:"Оставлять событие в календаре при смене ответственного за встречу",name:"CALENDAR_KEEP_REASSIGNED_MEETINGS"},
+      {id:"KEEP_UNBOUND_TASKS",type:"toggle",title:"Сохранять задачи при удалении элементов CRM",desc:"При удалении лида или сделки связанные задачи не удаляются, а остаются в системе",name:"KEEP_UNBOUND_TASKS"},
+      {id:"ACTIVITY_RESPONSIBLE_COUNTERS",type:"select",title:"Режим работы счётчиков",desc:"Определяет, чьи дела учитываются в счётчике на карточке элемента",name:"ACTIVITY_RESPONSIBLE_COUNTERS",options:[{value:"act",label:"По ответственному за дело"},{value:"entity",label:"По ответственному за элемент"}]},
+      {id:"REMOVE_ENTITY_BADGES_INTERVAL_DAYS",type:"select",title:"Скрывать статус дела на карточке (Канбан/Список)",desc:"Через сколько дней после завершения скрывать бейдж дела в списке и канбане",name:"REMOVE_ENTITY_BADGES_INTERVAL_DAYS",options:[{value:"30",label:"30 дней"},{value:"60",label:"60 дней"},{value:"90",label:"90 дней"}]}
+    ]},
+    {id:"complete_activity_on_convert",type:"matrix",title:"Автоматически закрывать дела при конвертации лидов",desc:"Выберите типы дел, которые будут автоматически завершаться при конвертации лида в сделку",items:[
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_TODO",title:"Дело",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_TODO"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_MEETING",title:"Встреча",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_MEETING"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_TASKS",title:"Задача",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_TASKS"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_VOXIMPLANT_CALL",title:"Звонок",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_VOXIMPLANT_CALL"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CALL_LIST",title:"Обзвон",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CALL_LIST"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_EMAIL",title:"E-mail",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_EMAIL"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_IMOPENLINES_SESSION",title:"Открытые линии",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_IMOPENLINES_SESSION"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_WEBFORM",title:"CRM-форма",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_WEBFORM"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_EXTERNAL_CHANNEL",title:"Внешний канал",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_EXTERNAL_CHANNEL"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_REQUEST",title:"Задание",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_REQUEST"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_DELIVERY",title:"Доставка",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_DELIVERY"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_CALL_TRACKER",title:"Трекер звонков",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_CALL_TRACKER"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_STORE_DOCUMENT",title:"Проведение документа",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_STORE_DOCUMENT"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_DOCUMENT",title:"Документ",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_DOCUMENT"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_PAYMENT",title:"Оплата",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_PAYMENT"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_REPEAT_SALE",title:"Повторная продажа",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_REPEAT_SALE"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_BOOKING",title:"Бронирование",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_BOOKING"},
+      {id:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_WAIT_LIST_ITEM",title:"Лист ожидания",name:"COMPLETE_ACTIVITY_ON_LEAD_CONVERT_CRM_WAIT_LIST_ITEM"}
+    ]}
+  ]},
+  {id:"mail_in_crm", short:"Почта в CRM", title:"Почта в CRM", subtitle:"Трекер, шаблоны и правила для входящих/исходящих писем.", icon:"mail", linksTitle:"Почтовые инструменты",
+   steps:[
+    {id:"email_tracker",type:"link",title:"Email-трекер",desc:"Настройка отслеживания входящей и исходящей почты в CRM",href:"/mail/"},
+    {id:"mail_templates",type:"link",title:"Почтовые шаблоны",desc:"Шаблоны писем для быстрой отправки клиентам",href:"/crm/configs/mailtemplate/"},
+    {id:"incoming_outgoing_rules",type:"settings_group",title:"Правила писем в CRM",settings:[
+      {id:"MARK_FORWARDED_EMAIL_AS_OUTGOING",type:"toggle",title:"Регистрировать пересланные письма сотрудников как «Письма клиенту»",desc:"Пересланные письма будут видны в карточке клиента как исходящие от компании",name:"MARK_FORWARDED_EMAIL_AS_OUTGOING"},
+      {id:"ENABLE_UNCONNECTED_RECIPIENTS",type:"toggle",title:"Разрешить отправлять письма на любые адреса",desc:"Сотрудники смогут отправлять письма клиентам, которых нет в CRM",name:"ENABLE_UNCONNECTED_RECIPIENTS"},
+      {id:"OUTGOING_EMAIL_OWNER_TYPE",type:"select",title:"При отправке на адрес не из CRM создавать",desc:"Какой элемент автоматически создавать при отправке письма незнакомому адресату",name:"OUTGOING_EMAIL_OWNER_TYPE",options:[{value:"1",label:"Лид"},{value:"3",label:"Контакт"}],visibility:{when:[{settingId:"ENABLE_UNCONNECTED_RECIPIENTS",operator:"equals",value:true}]}},
+      {id:"SERVICE_CODE_ALLOCATION",type:"select",title:"Служебный код",desc:"Где размещать служебный код для привязки ответа к элементу CRM",name:"SERVICE_CODE_ALLOCATION",options:[{value:"2",label:"Размещать в сообщении"},{value:"1",label:"Размещать в теме"},{value:"0",label:"Не использовать"}]},
+      {id:"ENABLE_B24_EMAIL_SIGNATURE",type:"toggle",title:"Добавлять подпись «Отправлено из Битрикс24»",desc:"В конец каждого письма добавляется ссылка на Битрикс24",name:"ENABLE_B24_EMAIL_SIGNATURE"}
+    ]}
+  ]},
+  {id:"integrations_and_channels", short:"Интеграции", title:"Подключить интеграции и каналы", subtitle:"1С, SMS-провайдеры, WhatsApp-коннекторы и лимиты.", icon:"plug", linksTitle:"Внешние интеграции и мессенджеры",
+   steps:[
+    {id:"external_sale",type:"link",title:"1С-Битрикс",desc:"Настройка синхронизации CRM с модулем «1С-Битрикс: Управление сайтом»",href:"/crm/configs/external_sale/"},
+    {id:"exchange_1c",type:"link",title:"Интеграция с «1С:Предприятие»",desc:"Двусторонний обмен данными между CRM и 1С:Предприятие",href:"/crm/configs/exch1c/"},
+    {id:"sms_twilio",type:"link",title:"СМС через twilio.com",desc:"Подключение провайдера Twilio для отправки SMS-уведомлений",href:"/crm/configs/sms/?sender=twilio"},
+    {id:"sms_smsru",type:"link",title:"СМС через sms.ru",desc:"Подключение провайдера sms.ru для отправки SMS-уведомлений",href:"/crm/configs/sms/?sender=smsru"},
+    {id:"sms_assistent",type:"link",title:"СМС через sms-assistent.by",desc:"Подключение белорусского провайдера SMS Assistent",href:"/crm/configs/sms/?sender=smsastby"},
+    {id:"sms_edna",type:"link",title:"СМС через sms.edna.ru",desc:"Подключение провайдера edna для отправки SMS и WhatsApp",href:"/crm/configs/sms/?sender=smsednaru"},
+    {id:"whatsapp_edna",type:"link",title:"WhatsApp (edna)",desc:"Подключение WhatsApp-канала через коннектор edna",href:"/contact_center/connector/?ID=whatsappbyedna"},
+    {id:"wazzup",type:"link",title:"Wazzup",desc:"Подключение WhatsApp и Instagram через платформу Wazzup",href:"/contact_center/connector/?ID=wazzup"},
+    {id:"sms_limits",type:"link",title:"Лимиты для СМС",desc:"Настройка максимального числа SMS-сообщений на одного клиента",href:"/crm/configs/sms/?page=limits"},
+    {id:"sms_apps",type:"link",title:"Приложения для СМС",desc:"Маркетплейс приложений для расширения SMS-функциональности",href:"/market/category/crm_robot_sms/"}
+  ]},
+  {id:"documents_payments", short:"Документы", title:"Документы и оплата", subtitle:"Способы оплаты, приложения, нумерация документов/счетов/предложений.", icon:"file", linksTitle:"Оплата и нумерация",
+   steps:[
+    {id:"payment_systems",type:"link",title:"Способы оплаты",desc:"Подключение платёжных систем для выставления счетов клиентам",href:"/crm/configs/ps/"},
+    {id:"payment_market",type:"link",title:"Маркетплейс (платежи)",desc:"Дополнительные приложения и коннекторы для приёма оплаты",href:"/market/category/payment/"},
+    {id:"doc_numerators",type:"link",title:"Нумератор: документы",desc:"Настройка формата и счётчика номеров для документов CRM",href:"/crm/configs/document_numerators/"},
+    {id:"numerator_invoices",type:"link",title:"Нумератор: счета",desc:"Настройка формата и счётчика номеров для смарт-счетов",href:"/crm/configs/document_numerators/?type=CRM_SMART_INVOICE"},
+    {id:"numerator_quotes",type:"link",title:"Нумератор: предложения",desc:"Настройка формата и счётчика номеров для коммерческих предложений",href:"/crm/configs/document_numerators/?type=CRM_QUOTE"}
+  ]},
+  {id:"access_and_rights", short:"Доступы", title:"Раздать доступы", subtitle:"Права доступа к CRM и операциям.", icon:"shield", linksTitle:"Управление правами",
+   steps:[
+    {id:"crm_permissions",type:"link",title:"Права доступа",desc:"Настройка ролей и разрешений: кто может видеть, создавать и редактировать элементы CRM",href:"/crm/perms/all/?st%5Btool%5D=crm&st%5Bc_section%5D=crm_settings&st%5Bp1%5D=crmMode_classic&st%5Bevent%5D=settings_view&st%5Bcategory%5D=settings_operations"}
+  ]},
+  {id:"marketplace_and_industry_scenarios", short:"Маркетплейс", title:"Маркетплейс и отраслевые сценарии", subtitle:"Приложения для CRM, миграции и готовые сценарии.", icon:"store", linksTitle:"Приложения и готовые решения",
+   steps:[
+    {id:"market_crm_apps",type:"link",title:"Приложения для CRM",desc:"Каталог готовых приложений и интеграций для расширения возможностей CRM",href:"/market/?placement=crm"},
+    {id:"market_migration",type:"link",title:"Миграция из других CRM",desc:"Инструменты и коннекторы для переноса данных из amoCRM, Salesforce и других систем",href:"/market/collection/migration_crm/"},
+    {id:"industry_scenarios",type:"link",title:"Отраслевые сценарии",desc:"Готовые конфигурации CRM для торговли, услуг, недвижимости и других отраслей",href:"/marketplace/configuration/placement/crm_settings/"}
+  ]},
+  {id:"data_quality_and_formats", short:"Качество данных", title:"Контроль качества данных", subtitle:"Дубликаты, форматирование, устаревшие справочники, исключения.", icon:"check", linksTitle:"Прочие инструменты",
+   steps:[
+    {id:"dup_control",type:"settings_group",title:"Контроль дубликатов",settings:[
+      {id:"ENABLE_LEAD_DUP_CONTROL",type:"toggle",title:"Включить контроль дубликатов для лидов",desc:"При создании лида система проверяет совпадение телефона или e-mail с существующими записями",name:"ENABLE_LEAD_DUP_CONTROL"},
+      {id:"ENABLE_CONTACT_DUP_CONTROL",type:"toggle",title:"Включить контроль дубликатов для контактов",desc:"При создании контакта система проверяет совпадение телефона или e-mail с существующими записями",name:"ENABLE_CONTACT_DUP_CONTROL"},
+      {id:"ENABLE_COMPANY_DUP_CONTROL",type:"toggle",title:"Включить контроль дубликатов для компаний",desc:"При создании компании система проверяет совпадение названия или реквизитов с существующими записями",name:"ENABLE_COMPANY_DUP_CONTROL"}
+    ]},
+    {id:"formatting",type:"settings_group",title:"Форматирование",settings:[
+      {id:"PERSON_NAME_FORMAT_ID",type:"select",title:"Формат имени клиента (лиды и контакты)",desc:"Порядок отображения имени, отчества и фамилии в карточках и списках",name:"PERSON_NAME_FORMAT_ID",options:[{value:"1",label:"[по умолчанию]"},{value:"6",label:"г-н Петров"},{value:"2",label:"Иван Петров"},{value:"3",label:"Иван Васильевич Петров"},{value:"4",label:"Петров Иван"},{value:"5",label:"Петров Иван Васильевич"}]},
+      {id:"CALLTO_FORMAT",type:"select",title:"Формат вывода ссылок callto",desc:"Как оформлять кликабельные телефонные номера в карточках CRM",name:"CALLTO_FORMAT",options:[{value:"1",label:"callto://74952128506"},{value:"2",label:"callto:74952128506"},{value:"4",label:"вызов через телефонию Битрикс24"},{value:"3",label:"свой формат"}]},
+      {id:"CALLTO_URL_TEMPLATE",type:"text",title:"Шаблон URL",desc:"Пользовательский шаблон URL для звонков (например, для корпоративной АТС)",name:"CALLTO_URL_TEMPLATE",visibility:{when:[{settingId:"CALLTO_FORMAT",operator:"equals",value:"3"}]}},
+      {id:"CALLTO_CLICK_HANDLER",type:"textarea",title:"Обработчик события onclick",desc:"JavaScript-код, выполняемый при клике на телефонный номер",name:"CALLTO_CLICK_HANDLER",visibility:{when:[{settingId:"CALLTO_FORMAT",operator:"equals",value:"3"}]}},
+      {id:"CALLTO_NORMALIZE_NUMBER",type:"toggle",title:"Преобразовать номер к международному формату набора",desc:"Автоматически приводить номера телефонов к формату +7XXXXXXXXXX",name:"CALLTO_NORMALIZE_NUMBER"},
+      {id:"ENABLE_SIMPLE_TIME_FORMAT",type:"toggle",title:"Показывать время создания/изменения в упрощённом виде",desc:"Вместо точной даты показывать относительное время: «2 часа назад», «вчера»",name:"ENABLE_SIMPLE_TIME_FORMAT"},
+      {id:"ENTITY_ADDRESS_FORMAT_ID",type:"readonly",title:"Формат почтового адреса клиента",desc:"Порядок полей адреса (страна, город, улица и т.д.) задаётся в настройках портала",name:"ENTITY_ADDRESS_FORMAT_ID",note:"Изменить формат адреса можно в настройках портала"}
+    ]},
+    {id:"status_deprecated",type:"settings_group",title:"Устаревшие справочники",settings:[
+      {id:"ENABLE_DEPRECATED_STATUSES",type:"toggle",title:"Показывать устаревшие справочники",desc:"Включить отображение старых системных справочников, скрытых после обновления CRM",name:"ENABLE_DEPRECATED_STATUSES"}
+    ]},
+    {id:"exclusion_list",type:"link",title:"Список исключений",desc:"Адреса e-mail и телефоны, которые не будут создавать новые лиды при обращении",href:"/crm/configs/exclusion/"}
+  ]},
+  {id:"health_and_recovery", short:"Здоровье CRM", title:"Проверить здоровье CRM", subtitle:"История, аудит, корзина и место на диске.", icon:"heart", linksTitle:"Диагностика и хранилище",
+   steps:[
+    {id:"volume",type:"link",title:"Чем занято место",desc:"Анализ использования дискового пространства элементами CRM",href:"/crm/configs/volume/"},
+    {id:"history",type:"settings_group",title:"История (события)",settings:[
+      {id:"ENABLE_EXPORT_EVENT",type:"toggle",title:"Регистрировать события экспорта",desc:"Фиксировать в истории каждый факт экспорта данных из CRM",name:"ENABLE_EXPORT_EVENT"},
+      {id:"ENABLE_VIEW_EVENT",type:"toggle",title:"Регистрировать события просмотра",desc:"Фиксировать в истории открытие карточек элементов CRM сотрудниками",name:"ENABLE_VIEW_EVENT"},
+      {id:"VIEW_EVENT_GROUPING_INTERVAL",type:"text",title:"Интервал группировки событий просмотра (мин)",desc:"События просмотра одного элемента в течение указанного времени будут объединены в одно",name:"VIEW_EVENT_GROUPING_INTERVAL"},
+      {id:"ENABLE_LEAD_DELETION_EVENT",type:"toggle",title:"Регистрировать события удаления лидов",desc:"Фиксировать в истории все операции удаления лидов",name:"ENABLE_LEAD_DELETION_EVENT"},
+      {id:"ENABLE_CONTACT_DELETION_EVENT",type:"toggle",title:"Регистрировать события удаления контактов",desc:"Фиксировать в истории все операции удаления контактов",name:"ENABLE_CONTACT_DELETION_EVENT"},
+      {id:"ENABLE_COMPANY_DELETION_EVENT",type:"toggle",title:"Регистрировать события удаления компаний",desc:"Фиксировать в истории все операции удаления компаний",name:"ENABLE_COMPANY_DELETION_EVENT"},
+      {id:"ENABLE_DEAL_DELETION_EVENT",type:"toggle",title:"Регистрировать события удаления сделок",desc:"Фиксировать в истории все операции удаления сделок",name:"ENABLE_DEAL_DELETION_EVENT"},
+      {id:"ENABLE_QUOTE_DELETION_EVENT",type:"toggle",title:"Регистрировать события удаления предложений",desc:"Фиксировать в истории все операции удаления коммерческих предложений",name:"ENABLE_QUOTE_DELETION_EVENT"}
+    ]},
+    {id:"recycle_bin",type:"settings_group",title:"Корзина",settings:[
+      {id:"ENABLE_LEAD_RECYCLE_BIN",type:"toggle",title:"Включить корзину для лидов",desc:"Удалённые лиды будут перемещаться в корзину и доступны для восстановления",name:"ENABLE_LEAD_RECYCLE_BIN"},
+      {id:"ENABLE_CONTACT_RECYCLE_BIN",type:"toggle",title:"Включить корзину для контактов",desc:"Удалённые контакты будут перемещаться в корзину и доступны для восстановления",name:"ENABLE_CONTACT_RECYCLE_BIN"},
+      {id:"ENABLE_COMPANY_RECYCLE_BIN",type:"toggle",title:"Включить корзину для компаний",desc:"Удалённые компании будут перемещаться в корзину и доступны для восстановления",name:"ENABLE_COMPANY_RECYCLE_BIN"},
+      {id:"ENABLE_DEAL_RECYCLE_BIN",type:"toggle",title:"Включить корзину для сделок",desc:"Удалённые сделки будут перемещаться в корзину и доступны для восстановления",name:"ENABLE_DEAL_RECYCLE_BIN"}
+    ]}
+  ]},
+  {id:"apps_runtime_rules", short:"REST API", title:"Правила для приложений (REST)", subtitle:"Системные ограничения интеграций через приложения.", icon:"code",
+   steps:[
+    {id:"rest_rules",type:"settings_group",title:"Маркетплейс: проверка обязательных полей",settings:[
+      {id:"ENABLE_REST_REQ_USER_FIELD_CHECK",type:"toggle",title:"Проверять наличие обязательных пользовательских полей",desc:"Приложения из маркетплейса не смогут создавать элементы без заполнения обязательных пользовательских полей",name:"ENABLE_REST_REQ_USER_FIELD_CHECK"}
+    ]}
+  ]}
+];
 
-/* ─── STATE ─── */
-// step states: { [scId_stepId]: 'not_started' | 'in_progress' | 'done' }
-// setting values: { [settingName]: value }
-// matrix values: { [name]: bool }
-let stepStates = {};
-let settingValues = {};
-let openScenarios = new Set();
-let activeTab = 'all';
-let searchQuery = '';
+const ENTITIES=[
+  {id:'all',label:'Все'},{id:'lead',label:'Лиды'},{id:'deal',label:'Сделки'},
+  {id:'contact',label:'Контакты'},{id:'company',label:'Компании'},
+  {id:'invoice',label:'Счета'},{id:'quote',label:'Предложения'}
+];
+const ENT_PREFIXES={lead:['LEAD_'],deal:['DEAL_'],contact:['CONTACT_'],company:['COMPANY_'],invoice:['INVOICE_'],quote:['QUOTE_']};
 
-const ENTITY_PREFIXES = {
-  lead:    ['LEAD_'],
-  deal:    ['DEAL_'],
-  contact: ['CONTACT_'],
-  company: ['COMPANY_'],
-  invoice: ['INVOICE_'],
-  quote:   ['QUOTE_'],
+/* ══ ICONS ══ */
+const IC={
+  rocket:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>`,
+  layers:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
+  layout:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>`,
+  zap:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  calendar:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+  mail:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
+  plug:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M14.5 2.5l7 7"/><path d="M16 4l4 4-6.5 6.5-4-4Z"/></svg>`,
+  file:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`,
+  shield:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  store:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M2 7h20"/></svg>`,
+  check:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+  heart:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+  code:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+  gear:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+  extlink:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`,
+  chev:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`,
 };
+function svgEl(name){ const d=document.createElement('span'); d.innerHTML=IC[name]||''; return d; }
 
-function matchesEntity(name, entity){
-  if(!name || entity === 'all') return true;
-  return ENTITY_PREFIXES[entity].some(p => name.toUpperCase().includes(p));
-}
+/* ══ STATE ══ */
+let svs={}, activeEnt='all', q='';
 
-function stepMatchesEntity(step, entity){
-  if(entity === 'all') return true;
-  if(step.type === 'settings_group' && step.settings)
-    return step.settings.some(s => matchesEntity(s.name, entity));
-  if(step.type === 'matrix' && step.items)
-    return step.items.some(s => matchesEntity(s.name, entity));
-  if(step.type === 'group' && step.items)
-    return step.items.some(i => matchesEntity(i.setting || i.name || '', entity));
-  if(step.type === 'link')
-    return matchesEntity(step.href || step.title || '', entity);
-  return false;
-}
-
-function scenarioMatchesEntity(sc, entity){
-  if(entity === 'all') return true;
-  return sc.steps.some(step => stepMatchesEntity(step, entity));
-}
-
-function lsKey(k){ return 'crm_setup_' + k; }
-function lsGet(k){ try{ const v = localStorage.getItem(lsKey(k)); return v === null ? undefined : JSON.parse(v); } catch{ return undefined; } }
-function lsSet(k, v){ try{ localStorage.setItem(lsKey(k), JSON.stringify(v)); } catch{} }
+/* ══ LS ══ */
+function lsg(k){ try{ const v=localStorage.getItem('crm3_'+k); return v===null?undefined:JSON.parse(v); }catch{ return undefined; } }
+function lss(k,v){ try{ localStorage.setItem('crm3_'+k,JSON.stringify(v)); }catch{} }
 
 function initState(){
-  DATA.scenarios.forEach(sc => {
-    sc.steps.forEach(step => {
-      const key = sc.id + '__' + step.id;
-      const saved = lsGet('step_' + key);
-      stepStates[key] = saved || 'not_started';
-
-      if(step.type === 'settings_group' && step.settings){
-        step.settings.forEach(s => {
-          if(settingValues[s.name] === undefined){
-            const sv = lsGet('setting_' + s.name);
-            settingValues[s.name] = sv !== undefined ? sv : (s.type === 'toggle' ? false : (s.options ? s.options[0].value : ''));
-          }
-        });
-      }
-      if(step.type === 'matrix' && step.items){
-        step.items.forEach(item => {
-          if(settingValues[item.name] === undefined){
-            const sv = lsGet('setting_' + item.name);
-            settingValues[item.name] = sv !== undefined ? sv : false;
-          }
-        });
-      }
+  SCENARIOS.forEach(sc=>sc.steps.forEach(step=>{
+    if(step.type==='settings_group'&&step.settings) step.settings.forEach(s=>{
+      if(svs[s.name]===undefined){ const v=lsg('s_'+s.name); svs[s.name]=v!==undefined?v:(s.type==='toggle'?false:(s.options?s.options[0].value:'')); }
     });
+    if(step.type==='matrix'&&step.items) step.items.forEach(i=>{
+      if(svs[i.name]===undefined){ const v=lsg('s_'+i.name); svs[i.name]=v!==undefined?v:false; }
+    });
+  }));
+}
+function setV(n,v){ svs[n]=v; lss('s_'+n,v); }
+function getV(n){ return svs[n]; }
+
+function checkVis(vis){
+  if(!vis||!vis.when) return true;
+  return vis.when.every(c=>{
+    const cur=getV(c.settingId);
+    return c.operator==='equals'?(typeof c.value==='boolean'?cur===c.value:String(cur)===String(c.value)):true;
   });
 }
 
-function setStepState(scId, stepId, state){
-  const key = scId + '__' + stepId;
-  stepStates[key] = state;
-  lsSet('step_' + key, state);
+/* ══ ENTITY MATCH ══ */
+function mEnt(name,ent){
+  if(!name||ent==='all') return true;
+  return ENT_PREFIXES[ent].some(p=>name.toUpperCase().includes(p));
 }
-
-function getStepState(scId, stepId){
-  return stepStates[scId + '__' + stepId] || 'not_started';
-}
-
-function setSettingValue(name, val){
-  settingValues[name] = val;
-  lsSet('setting_' + name, val);
-}
-
-function getSettingValue(name){ return settingValues[name]; }
-
-function checkVisibility(vis){
-  if(!vis || !vis.when) return true;
-  return vis.when.every(cond => {
-    const cur = getSettingValue(cond.settingId);
-    if(cond.operator === 'equals'){
-      if(typeof cond.value === 'boolean') return cur === cond.value;
-      return String(cur) === String(cond.value);
-    }
-    return true;
-  });
-}
-
-/* ─── SCENARIO STATUS ─── */
-function getScenarioStatus(sc){
-  const states = sc.steps.map(st => getStepState(sc.id, st.id));
-  if(states.every(s => s === 'done')) return 'done';
-  if(states.some(s => s === 'done' || s === 'in_progress')) return 'in_progress';
-  return 'not_started';
-}
-
-function countableSteps(sc){ return sc.steps.length; }
-function doneSteps(sc){ return sc.steps.filter(st => getStepState(sc.id, st.id) === 'done').length; }
-
-/* ─── SEARCH MATCH ─── */
-function stepMatchesSearch(step, q){
-  if(!q) return true;
-  const low = q.toLowerCase();
-  if(step.title && step.title.toLowerCase().includes(low)) return true;
-  if(step.type === 'settings_group' && step.settings){
-    return step.settings.some(s => s.title.toLowerCase().includes(low) || s.name.toLowerCase().includes(low));
-  }
-  if(step.type === 'group' && step.items){
-    return step.items.some(i => i.title.toLowerCase().includes(low));
-  }
-  if(step.type === 'matrix' && step.items){
-    return step.items.some(i => i.title.toLowerCase().includes(low) || i.name.toLowerCase().includes(low));
-  }
+function stepME(step,ent){
+  if(ent==='all') return true;
+  if(step.type==='settings_group'&&step.settings) return step.settings.some(s=>mEnt(s.name,ent));
+  if(step.type==='matrix'&&step.items) return step.items.some(s=>mEnt(s.name,ent));
+  if(step.type==='link') return mEnt(step.href||'',ent);
   return false;
 }
-
-function scenarioMatchesSearch(sc, q){
+function scME(sc,ent){ return ent==='all'||sc.steps.some(s=>stepME(s,ent)); }
+function scMS(sc,q){
   if(!q) return true;
-  if(sc.title.toLowerCase().includes(q.toLowerCase())) return true;
-  return sc.steps.some(st => stepMatchesSearch(st, q));
+  const l=q.toLowerCase();
+  if(sc.title.toLowerCase().includes(l)||sc.short.toLowerCase().includes(l)) return true;
+  return sc.steps.some(step=>{
+    if(step.title&&step.title.toLowerCase().includes(l)) return true;
+    if(step.type==='settings_group'&&step.settings) return step.settings.some(s=>s.title.toLowerCase().includes(l)||s.name.toLowerCase().includes(l));
+    if(step.type==='matrix'&&step.items) return step.items.some(i=>i.title.toLowerCase().includes(l));
+    return false;
+  });
 }
 
-/* ─── TOAST ─── */
-function showToast(title, url){
-  const c = document.getElementById('toasts');
-  const t = document.createElement('div');
-  t.className = 'toast';
-  t.innerHTML = `<div class="toast-title">${esc(title)}</div>${url ? `<div class="toast-url">${esc(url)}</div>` : ''}`;
-  c.appendChild(t);
-  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 230); }, 3000);
+/* ══ TOAST ══ */
+function toast(title,url){
+  const c=document.getElementById('toasts'),t=document.createElement('div');
+  t.className='toast';
+  t.innerHTML=`<div class="toast-title">${esc(title)}</div>${url?`<div class="toast-url">${esc(url)}</div>`:''}`;
+  c.appendChild(t); setTimeout(()=>{ t.classList.add('out'); setTimeout(()=>t.remove(),220); },2800);
 }
-
-/* ─── UTILS ─── */
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function svgChev(cls){ return `<svg class="${cls}" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`; }
-function svgLink(){ return `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`; }
-function svgGear(){ return `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`; }
 
-/* ─── BUILD CONTROLS ─── */
-function buildToggle(name, scId, stepId, onChange){
-  const label = document.createElement('label');
-  label.className = 'tog';
-  const inp = document.createElement('input');
-  inp.type = 'checkbox';
-  inp.checked = !!getSettingValue(name);
-  const track = document.createElement('span'); track.className = 'tog-track';
-  const thumb = document.createElement('span'); thumb.className = 'tog-thumb';
-  inp.addEventListener('change', () => {
-    setSettingValue(name, inp.checked);
-    if(scId && stepId) setStepState(scId, stepId, 'in_progress');
+/* ══ B24 TOGGLE ══ */
+function buildToggle(name, onChange){
+  const wrap=document.createElement('label'); wrap.className='b24-tog';
+  const inp=document.createElement('input'); inp.type='checkbox'; inp.checked=!!getV(name);
+  const pill=document.createElement('span'); pill.className='b24-pill '+(inp.checked?'on':'off'); pill.textContent=inp.checked?'ВКЛ':'ВЫКЛ';
+  const track=document.createElement('div'); track.className='b24-track '+(inp.checked?'on':'off');
+  const thumb=document.createElement('div'); thumb.className='b24-thumb'; track.append(thumb);
+  inp.addEventListener('change',()=>{
+    setV(name,inp.checked);
+    pill.className='b24-pill '+(inp.checked?'on':'off'); pill.textContent=inp.checked?'ВКЛ':'ВЫКЛ';
+    track.className='b24-track '+(inp.checked?'on':'off');
     if(onChange) onChange();
   });
-  label.append(inp, track, thumb);
-  return label;
+  wrap.append(inp,pill,track); return wrap;
 }
 
-function buildSelect(name, opts, scId, stepId, onChange){
-  const sel = document.createElement('select');
-  sel.className = 'ctrl-sel';
-  opts.forEach(o => { const op = document.createElement('option'); op.value = o.value; op.textContent = o.label; sel.append(op); });
-  const cur = getSettingValue(name);
-  if(cur !== undefined && cur !== false) sel.value = String(cur);
-  sel.addEventListener('change', () => {
-    setSettingValue(name, sel.value);
-    if(scId && stepId) setStepState(scId, stepId, 'in_progress');
-    if(onChange) onChange();
-  });
-  return sel;
-}
+/* ══ SETTING ROW ══ */
+function buildSRow(setting, container){
+  const row=document.createElement('div');
+  row.className='setting-row'+(setting.visibility&&!checkVis(setting.visibility)?' hidden':'');
+  if(setting.visibility) row.dataset.vis=JSON.stringify(setting.visibility);
 
-function buildText(name, scId, stepId){
-  const inp = document.createElement('input');
-  inp.type = 'text'; inp.className = 'ctrl-txt';
-  const v = getSettingValue(name); inp.value = (v && v !== false) ? v : '';
-  inp.addEventListener('input', () => { setSettingValue(name, inp.value); if(scId && stepId) setStepState(scId, stepId, 'in_progress'); });
-  return inp;
-}
-
-function buildTextarea(name, scId, stepId){
-  const ta = document.createElement('textarea');
-  ta.className = 'ctrl-ta';
-  const v = getSettingValue(name); ta.value = (v && v !== false) ? v : '';
-  ta.addEventListener('input', () => { setSettingValue(name, ta.value); if(scId && stepId) setStepState(scId, stepId, 'in_progress'); });
-  return ta;
-}
-
-/* ─── BUILD STEPS ─── */
-function buildLinkStep(step, sc){
-  const state = getStepState(sc.id, step.id);
-  const div = document.createElement('div');
-  div.className = 'step';
-
-  const row = document.createElement('div');
-  row.className = 'step-link';
-
-  const cb = document.createElement('input');
-  cb.type = 'checkbox'; cb.className = 'step-link-cb';
-  cb.checked = state === 'done';
-  cb.addEventListener('change', e => {
-    e.stopPropagation();
-    setStepState(sc.id, step.id, cb.checked ? 'done' : 'not_started');
-    renderAll();
-  });
-
-  const title = document.createElement('span');
-  title.className = 'step-link-title';
-  title.textContent = step.title;
-
-  const urlSpan = document.createElement('span');
-  urlSpan.className = 'step-link-url'; urlSpan.textContent = step.href || '';
-
-  const btn = document.createElement('button');
-  btn.className = 'open-link-btn' + (state === 'in_progress' || state === 'done' ? ' visited' : '');
-  btn.innerHTML = svgLink() + ' Открыть';
-  btn.style.display = 'flex'; btn.style.alignItems = 'center'; btn.style.gap = '5px';
-  btn.addEventListener('click', e => {
-    e.stopPropagation();
-    if(state !== 'done') setStepState(sc.id, step.id, 'in_progress');
-    showToast(step.title, step.href);
-    renderAll();
-  });
-
-  row.append(cb, title, urlSpan, btn);
-  div.append(row);
-  return div;
-}
-
-function buildSettingsGroupStep(step, sc){
-  const div = document.createElement('div');
-  div.className = 'step step-sg';
-
-  const head = document.createElement('div');
-  head.className = 'sg-head';
-
-  const icon = document.createElement('div');
-  icon.className = 'sg-icon';
-  icon.innerHTML = svgGear();
-
-  const titleEl = document.createElement('span'); titleEl.className = 'sg-title'; titleEl.textContent = step.title;
-  const src = step.source ? document.createElement('span') : null;
-  if(src){ src.className = 'sg-source'; src.textContent = step.source.tab || ''; }
-
-  head.append(icon, titleEl);
-  if(src) head.append(src);
-  head.append(svgChevEl('sg-chev'));
-
-  const body = document.createElement('div');
-  body.className = 'sg-body';
-
-  const refreshVisibility = () => {
-    body.querySelectorAll('.setting-row[data-vis]').forEach(row => {
-      const vis = JSON.parse(row.dataset.vis);
-      row.classList.toggle('hidden', !checkVisibility(vis));
-    });
+  const refVis=()=>{
+    if(container) container.querySelectorAll('.setting-row[data-vis]').forEach(r=>r.classList.toggle('hidden',!checkVis(JSON.parse(r.dataset.vis))));
   };
 
-  const settingsToRender = activeTab === 'all'
-    ? step.settings
-    : step.settings.filter(s => matchesEntity(s.name, activeTab));
+  const ctrl=document.createElement('div'); ctrl.className='s-ctrl';
+  if(setting.type==='toggle') ctrl.append(buildToggle(setting.name, refVis));
+  else ctrl.style.display='none';
 
-  if(settingsToRender.length === 0) return null;
+  const txt=document.createElement('div'); txt.className='s-text';
+  const titleEl=document.createElement('div'); titleEl.className='s-title'; titleEl.textContent=setting.title;
+  if(setting.visibility){
+    const c=setting.visibility.when[0];
+    const badge=document.createElement('span'); badge.className='cond-badge';
+    badge.textContent='если '+c.settingId+'='+(c.value===true?'вкл':c.value===false?'выкл':c.value);
+    titleEl.append(badge);
+  }
+  txt.append(titleEl);
+  if(setting.desc){ const d=document.createElement('div'); d.className='s-desc'; d.textContent=setting.desc; txt.append(d); }
+  const nameEl=document.createElement('div'); nameEl.className='s-name'; nameEl.textContent=setting.name;
+  txt.append(nameEl);
+  if(setting.note){ const n=document.createElement('div'); n.className='s-note'; n.textContent=setting.note; txt.append(n); }
 
-  settingsToRender.forEach(setting => {
-    const row = document.createElement('div');
-    row.className = 'setting-row' + (setting.visibility && !checkVisibility(setting.visibility) ? ' hidden' : '');
-    if(setting.visibility) row.dataset.vis = JSON.stringify(setting.visibility);
+  if(setting.type==='select'){
+    const sel=document.createElement('select'); sel.className='ctrl-sel';
+    setting.options.forEach(o=>{ const op=document.createElement('option'); op.value=o.value; op.textContent=o.label; sel.append(op); });
+    const cur=getV(setting.name); if(cur!==undefined&&cur!==false) sel.value=String(cur);
+    sel.addEventListener('change',()=>{ setV(setting.name,sel.value); refVis(); });
+    txt.append(sel);
+  } else if(setting.type==='text'){
+    const inp=document.createElement('input'); inp.type='text'; inp.className='ctrl-txt';
+    const v=getV(setting.name); inp.value=(v&&v!==false)?v:'';
+    inp.addEventListener('input',()=>setV(setting.name,inp.value));
+    txt.append(inp);
+  } else if(setting.type==='textarea'){
+    const ta=document.createElement('textarea'); ta.className='ctrl-ta';
+    const v=getV(setting.name); ta.value=(v&&v!==false)?v:'';
+    ta.addEventListener('input',()=>setV(setting.name,ta.value));
+    txt.append(ta);
+  } else if(setting.type==='readonly'){
+    const badge=document.createElement('div'); badge.className='ctrl-ro-badge'; badge.textContent='read-only';
+    txt.append(badge);
+  }
 
-    const labelWrap = document.createElement('div'); labelWrap.className = 'setting-label';
-    const titleRow = document.createElement('div'); titleRow.style.cssText = 'display:flex;align-items:center;flex-wrap:wrap;gap:4px';
-    const t = document.createElement('span'); t.className = 'setting-title'; t.textContent = setting.title;
-    titleRow.append(t);
-    if(setting.visibility){
-      const cb = document.createElement('span'); cb.className = 'cond-badge';
-      const c = setting.visibility.when[0];
-      cb.textContent = 'if ' + c.settingId + '=' + (c.value === true ? 'on' : c.value === false ? 'off' : c.value);
-      titleRow.append(cb);
+  row.append(ctrl,txt); return row;
+}
+
+/* ══ ACCORDION ══ */
+function buildAcc(title, iconName, bodyFn, startOpen){
+  const card=document.createElement('div'); card.className='acc-card'+(startOpen?' open':'');
+  const head=document.createElement('div'); head.className='acc-head';
+  const ic=document.createElement('span'); ic.className='acc-icon'; ic.innerHTML=IC[iconName]||IC.gear;
+  const t=document.createElement('span'); t.className='acc-title'; t.textContent=title;
+  const ch=document.createElement('span'); ch.className='acc-chev'; ch.innerHTML=IC.chev;
+  head.append(ic,t,ch);
+  const body=document.createElement('div'); body.className='acc-body';
+  bodyFn(body);
+  head.addEventListener('click',()=>card.classList.toggle('open'));
+  card.append(head,body); return card;
+}
+
+/* ══ MATRIX ══ */
+function openMatrix(step){
+  document.getElementById('matrixTitle').textContent=step.title;
+  const body=document.getElementById('matrixBody'); body.innerHTML='';
+  step.items.forEach(item=>{
+    const row=document.createElement('div'); row.className='modal-row';
+    row.append(buildToggle(item.name));
+    const lbl=document.createElement('span'); lbl.className='modal-lbl'; lbl.textContent=item.title;
+    const key=document.createElement('span'); key.className='modal-key'; key.textContent=item.name;
+    row.append(lbl,key); body.append(row);
+  });
+  document.getElementById('matrixOverlay').classList.add('show');
+}
+document.getElementById('matrixClose').addEventListener('click',()=>document.getElementById('matrixOverlay').classList.remove('show'));
+document.getElementById('matrixDone').addEventListener('click',()=>document.getElementById('matrixOverlay').classList.remove('show'));
+document.getElementById('matrixOverlay').addEventListener('click',e=>{ if(e.target===e.currentTarget) e.currentTarget.classList.remove('show'); });
+
+/* ══ RENDER SIDEBAR ══ */
+function renderSidebar(){
+  // entity chips
+  const ef=document.getElementById('entityFilter'); ef.innerHTML='';
+  ENTITIES.forEach(e=>{
+    const chip=document.createElement('div'); chip.className='entity-chip'+(activeEnt===e.id?' active':'');
+    chip.textContent=e.label;
+    chip.addEventListener('click',()=>{ activeEnt=e.id; renderSidebar(); renderContent(); });
+    ef.append(chip);
+  });
+  // scenario nav — click scrolls right panel to that section
+  const nav=document.getElementById('sidebarNav'); nav.innerHTML='';
+  const ql=q.toLowerCase().trim();
+  let any=false;
+  SCENARIOS.forEach(sc=>{
+    if(!scME(sc,activeEnt)) return;
+    if(ql&&!scMS(sc,ql)) return;
+    any=true;
+    const item=document.createElement('div'); item.className='nav-item'; item.dataset.scId=sc.id;
+    const ic=document.createElement('span'); ic.className='ni-icon'; ic.innerHTML=IC[sc.icon]||'';
+    const lbl=document.createElement('span'); lbl.className='ni-label'; lbl.textContent=sc.short; lbl.title=sc.title;
+    item.append(ic,lbl);
+    item.addEventListener('click',()=>{
+      const target=document.getElementById('sc-section-'+sc.id);
+      if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+      // highlight
+      document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+      item.classList.add('active');
+    });
+    nav.append(item);
+  });
+  if(!any){ const n=document.createElement('div'); n.style.cssText='padding:10px;font-size:.8rem;color:var(--dim)'; n.textContent='Нет разделов'; nav.append(n); }
+}
+
+/* ══ RENDER CONTENT — all matching scenarios ══ */
+function renderContent(){
+  const ql=q.toLowerCase().trim();
+  const entLabel=ENTITIES.find(e=>e.id===activeEnt)?.label||'Все';
+  document.getElementById('contentTitle').textContent=activeEnt==='all'?'Все настройки':entLabel;
+  document.getElementById('contentSub').textContent='';
+  const body=document.getElementById('contentBody'); body.innerHTML='';
+  let anyVisible=false;
+
+  SCENARIOS.forEach(sc=>{
+    if(!scME(sc,activeEnt)) return;
+    if(ql&&!scMS(sc,ql)) return;
+
+    // collect visible steps
+    const links=sc.steps.filter(s=>s.type==='link'&&(activeEnt==='all'||stepME(s,activeEnt)));
+    const sgSteps=sc.steps.filter(s=>s.type==='settings_group'&&stepME(s,activeEnt)).map(step=>{
+      const filtered=activeEnt==='all'?step.settings:step.settings.filter(s=>mEnt(s.name,activeEnt));
+      return filtered.length?{...step,settings:filtered}:null;
+    }).filter(Boolean);
+    const matrices=sc.steps.filter(s=>s.type==='matrix');
+    if(!links.length&&!sgSteps.length&&!matrices.length) return;
+    anyVisible=true;
+
+    // section wrapper with anchor id
+    const section=document.createElement('div'); section.id='sc-section-'+sc.id; section.style.cssText='margin-bottom:28px';
+
+    // scenario header
+    const hd=document.createElement('div'); hd.style.cssText='display:flex;align-items:center;gap:10px;margin-bottom:10px;padding:0 2px';
+    const hdIc=document.createElement('span'); hdIc.innerHTML=IC[sc.icon]||''; hdIc.style.cssText='color:var(--muted);display:flex';
+    const hdTitle=document.createElement('div'); hdTitle.style.cssText='font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em';
+    hdTitle.textContent=sc.title;
+    hd.append(hdIc,hdTitle); section.append(hd);
+
+    // links accordion
+    if(links.length){
+      section.append(buildAcc(sc.linksTitle||'Разделы и конфигурация','extlink', bdy=>{
+        links.forEach(step=>{
+          const row=document.createElement('div'); row.className='link-row';
+          const ic=document.createElement('span'); ic.className='link-icon'; ic.innerHTML=IC.extlink;
+          const info=document.createElement('div'); info.className='link-info';
+          const title=document.createElement('span'); title.className='link-title'; title.textContent=step.title;
+          info.append(title);
+          if(step.desc){ const d=document.createElement('div'); d.className='link-desc'; d.textContent=step.desc; info.append(d); }
+          const btn=document.createElement('button'); btn.className='goto-btn'; btn.textContent='Перейти';
+          btn.addEventListener('click',e=>{ e.stopPropagation(); toast(step.title,step.href); });
+          row.append(ic,info,btn); bdy.append(row);
+        });
+      }, true));
     }
-    const nameEl = document.createElement('div'); nameEl.className = 'setting-name'; nameEl.textContent = setting.name;
-    labelWrap.append(titleRow, nameEl);
-    if(setting.note){ const n = document.createElement('div'); n.className = 'setting-note'; n.textContent = setting.note; labelWrap.append(n); }
 
-    const ctrl = document.createElement('div'); ctrl.className = 'setting-ctrl';
+    // settings_group accordions
+    sgSteps.forEach(step=>{
+      section.append(buildAcc(step.title,'gear', bdy=>{
+        step.settings.forEach(s=>bdy.append(buildSRow(s,bdy)));
+      }, true));
+    });
 
-    if(setting.type === 'toggle'){
-      ctrl.append(buildToggle(setting.name, sc.id, step.id, refreshVisibility));
-    } else if(setting.type === 'select'){
-      ctrl.append(buildSelect(setting.name, setting.options, sc.id, step.id, refreshVisibility));
-    } else if(setting.type === 'text'){
-      ctrl.append(buildText(setting.name, sc.id, step.id));
-    } else if(setting.type === 'textarea'){
-      ctrl.append(buildTextarea(setting.name, sc.id, step.id));
-    } else if(setting.type === 'readonly'){
-      const ro = document.createElement('div'); ro.className = 'ctrl-ro';
-      const val = document.createElement('div'); val.className = 'ctrl-ro-val'; val.textContent = '—';
-      const badge = document.createElement('div'); badge.className = 'ctrl-ro-badge'; badge.textContent = 'read-only';
-      ro.append(val, badge);
-      ctrl.append(ro);
+    // matrix accordions
+    matrices.forEach(step=>{
+      section.append(buildAcc(step.title,'gear', bdy=>{
+        if(step.desc){ const d=document.createElement('div'); d.style.cssText='padding:10px 20px 4px;font-size:.8rem;color:var(--muted);line-height:1.45'; d.textContent=step.desc; bdy.append(d); }
+        const row=document.createElement('div'); row.className='matrix-row-ui';
+        const mt=document.createElement('span'); mt.className='matrix-title'; mt.textContent='Настроить типы дел для автозакрытия';
+        const btn=document.createElement('button'); btn.className='matrix-btn'; btn.textContent='Открыть матрицу';
+        btn.addEventListener('click',()=>openMatrix(step));
+        row.append(mt,btn); bdy.append(row);
+      }, false));
+    });
+
+    body.append(section);
+  });
+
+  if(!anyVisible) body.innerHTML='<div class="empty-state">Ничего не найдено</div>';
+
+  // sync active nav item on scroll
+  syncNavOnScroll();
+}
+
+/* highlight nav item based on scroll position */
+function syncNavOnScroll(){
+  const bodyEl=document.getElementById('contentBody');
+  bodyEl.onscroll=()=>{
+    const sections=[...bodyEl.querySelectorAll('[id^="sc-section-"]')];
+    let current=null;
+    for(const sec of sections){
+      if(sec.offsetTop-bodyEl.scrollTop<=60) current=sec.id.replace('sc-section-','');
     }
-
-    row.append(labelWrap, ctrl);
-    body.append(row);
-  });
-
-  head.addEventListener('click', () => {
-    div.classList.toggle('sg-open');
-    refreshVisibility();
-  });
-
-  if(activeTab !== 'all'){ div.classList.add('sg-open'); refreshVisibility(); }
-
-  div.append(head, body);
-  return div;
-}
-
-function buildMatrixStep(step, sc){
-  const div = document.createElement('div');
-  div.className = 'step step-matrix';
-
-  const head = document.createElement('div');
-  head.className = 'matrix-head';
-
-  const title = document.createElement('span'); title.className = 'matrix-title'; title.textContent = step.title;
-  const btn = document.createElement('button'); btn.className = 'matrix-open-btn'; btn.textContent = 'Открыть матрицу';
-
-  btn.addEventListener('click', e => {
-    e.stopPropagation();
-    openMatrix(step, sc);
-  });
-
-  head.append(title, btn);
-  div.append(head);
-  return div;
-}
-
-function buildGroupStep(step, sc){
-  const div = document.createElement('div');
-  div.className = 'step step-group';
-
-  const head = document.createElement('div');
-  head.className = 'group-head';
-  const title = document.createElement('span'); title.className = 'group-title'; title.textContent = step.title;
-  head.append(title, svgChevEl('g-chev'));
-
-  const body = document.createElement('div');
-  body.className = 'group-body';
-
-  const groupItemsToRender = activeTab === 'all'
-    ? step.items
-    : step.items.filter(i => matchesEntity(i.setting || i.name || i.href || '', activeTab));
-
-  if(groupItemsToRender.length === 0) return null;
-
-  groupItemsToRender.forEach(item => {
-    const row = document.createElement('div'); row.className = 'group-item';
-    const cb = document.createElement('input'); cb.type='checkbox'; cb.className='group-item-cb';
-    const saved = lsGet('gi_' + item.id); cb.checked = !!saved;
-    const t = document.createElement('span'); t.className = 'group-item-title'; t.textContent = item.title;
-    cb.addEventListener('change', e => {
-      e.stopPropagation();
-      lsSet('gi_' + item.id, cb.checked);
-      setStepState(sc.id, step.id, cb.checked ? 'in_progress' : 'not_started');
-      renderAll();
+    document.querySelectorAll('.nav-item').forEach(item=>{
+      item.classList.toggle('active', item.dataset.scId===current);
     });
-    const btn = document.createElement('button'); btn.className = 'group-item-btn';
-    btn.innerHTML = svgLink() + ' Открыть';
-    btn.style.cssText = 'display:flex;align-items:center;gap:5px';
-    btn.addEventListener('click', e => {
-      e.stopPropagation();
-      setStepState(sc.id, step.id, 'in_progress');
-      showToast(item.title, item.href);
-      renderAll();
-    });
-    row.append(cb, t, btn);
-    body.append(row);
-  });
-
-  head.addEventListener('click', () => div.classList.toggle('g-open'));
-  if(activeTab !== 'all') div.classList.add('g-open');
-  div.append(head, body);
-  return div;
+  };
 }
 
-function svgChevEl(cls){
-  const el = document.createElementNS('http://www.w3.org/2000/svg','svg');
-  el.setAttribute('width','14'); el.setAttribute('height','14'); el.setAttribute('viewBox','0 0 24 24');
-  el.setAttribute('fill','none'); el.setAttribute('stroke','currentColor');
-  el.setAttribute('stroke-width','2.2'); el.setAttribute('stroke-linecap','round'); el.setAttribute('stroke-linejoin','round');
-  el.setAttribute('class', cls);
-  const p = document.createElementNS('http://www.w3.org/2000/svg','polyline');
-  p.setAttribute('points','6 9 12 15 18 9'); el.append(p);
-  return el;
-}
-
-/* ─── MATRIX MODAL ─── */
-function openMatrix(step, sc){
-  const overlay = document.getElementById('matrixOverlay');
-  document.getElementById('matrixModalTitle').textContent = step.title;
-  const body = document.getElementById('matrixModalBody');
-  body.innerHTML = '';
-
-  step.items.forEach(item => {
-    const row = document.createElement('div'); row.className = 'modal-row';
-    const cb = document.createElement('input'); cb.type='checkbox'; cb.className='modal-cb';
-    cb.checked = !!getSettingValue(item.name);
-    cb.addEventListener('change', e => { e.stopPropagation(); setSettingValue(item.name, cb.checked); setStepState(sc.id, step.id, 'in_progress'); });
-    const lbl = document.createElement('span'); lbl.className = 'modal-label'; lbl.textContent = item.title;
-    const key = document.createElement('span'); key.className = 'modal-key'; key.textContent = item.name;
-    row.addEventListener('click', e => { if(e.target !== cb){ cb.checked = !cb.checked; setSettingValue(item.name, cb.checked); setStepState(sc.id, step.id, 'in_progress'); }});
-    row.append(cb, lbl, key);
-    body.append(row);
-  });
-
-  overlay.classList.add('show');
-}
-
-document.getElementById('matrixClose').addEventListener('click', () => document.getElementById('matrixOverlay').classList.remove('show'));
-document.getElementById('matrixDone').addEventListener('click', () => { document.getElementById('matrixOverlay').classList.remove('show'); renderAll(); });
-document.getElementById('matrixOverlay').addEventListener('click', e => { if(e.target === e.currentTarget) e.currentTarget.classList.remove('show'); });
-
-/* ─── RENDER ─── */
-function renderStats(){
-  const row = document.getElementById('statsRow');
-  let dn=0;
-  DATA.scenarios.forEach(sc => { if(getScenarioStatus(sc)==='done') dn++; });
-  row.innerHTML = `<span class="stat-chip done">Завершено: ${dn} из ${DATA.scenarios.length}</span>`;
-}
-
-function renderAll(){
-  renderStats();
-  const list = document.getElementById('list');
-  const empty = document.getElementById('emptyMsg');
-  list.innerHTML = '';
-  let anyVisible = false;
-  const q = searchQuery.toLowerCase().trim();
-
-  DATA.scenarios.forEach((sc, idx) => {
-    if(!scenarioMatchesEntity(sc, activeTab)) return;
-    if(q && !scenarioMatchesSearch(sc, q)) return;
-    anyVisible = true;
-
-    const done = doneSteps(sc);
-    const total = countableSteps(sc);
-    const pct = total > 0 ? Math.round(done/total*100) : 0;
-    const allDone = done === total && total > 0;
-    const isOpen = openScenarios.has(sc.id);
-
-    const card = document.createElement('div');
-    card.className = 'scenario' + (isOpen ? ' open' : '');
-
-    /* HEAD */
-    const head = document.createElement('div'); head.className = 'sc-head';
-
-    const num = document.createElement('div'); num.className = 'sc-num'; num.textContent = String(idx+1).padStart(2,'0');
-
-    const info = document.createElement('div'); info.className = 'sc-info';
-    const titleEl = document.createElement('div'); titleEl.className = 'sc-title'; titleEl.textContent = sc.title;
-    const subEl = document.createElement('div'); subEl.className = 'sc-sub'; subEl.textContent = sc.subtitle||'';
-    info.append(titleEl, subEl);
-
-    const right = document.createElement('div'); right.className = 'sc-right';
-
-    const prog = document.createElement('div'); prog.className = 'sc-prog';
-    const progLbl = document.createElement('div'); progLbl.className = 'sc-prog-label'; progLbl.textContent = `${done}/${total}`;
-    const progBar = document.createElement('div'); progBar.className = 'sc-prog-bar';
-    const progFill = document.createElement('div');
-    progFill.className = 'sc-prog-fill' + (allDone ? ' all-done' : '');
-    progFill.style.width = pct + '%';
-    progBar.append(progFill); prog.append(progLbl, progBar);
-
-    right.append(prog, svgChevEl('chevron'));
-    head.append(num, info, right);
-    head.addEventListener('click', () => {
-      if(openScenarios.has(sc.id)) openScenarios.delete(sc.id);
-      else openScenarios.add(sc.id);
-      renderAll();
-    });
-
-    /* BODY */
-    const body = document.createElement('div'); body.className = 'sc-body';
-    sc.steps.forEach(step => {
-      if(q && !stepMatchesSearch(step, q)) return;
-      if(activeTab !== 'all' && !stepMatchesEntity(step, activeTab)) return;
-      let el;
-      if(step.type === 'link') el = buildLinkStep(step, sc);
-      else if(step.type === 'settings_group') el = buildSettingsGroupStep(step, sc);
-      else if(step.type === 'matrix') el = buildMatrixStep(step, sc);
-      else if(step.type === 'group') el = buildGroupStep(step, sc);
-      if(el) body.append(el);
-    });
-
-    if(body.children.length === 0) return;
-
-    card.append(head, body);
-    list.append(card);
-  });
-
-  empty.style.display = anyVisible ? 'none' : '';
-}
-
-/* ─── EVENTS ─── */
-document.getElementById('searchInp').addEventListener('input', e => { searchQuery = e.target.value; renderAll(); });
-document.querySelectorAll('.tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeTab = btn.dataset.tab;
-    if(activeTab === 'all'){
-      openScenarios.clear();
-    } else {
-      DATA.scenarios.forEach(sc => {
-        if(scenarioMatchesEntity(sc, activeTab)) openScenarios.add(sc.id);
-      });
-    }
-    renderAll();
-  });
+/* ══ SEARCH ══ */
+document.getElementById('searchInp').addEventListener('input',e=>{
+  q=e.target.value;
+  renderSidebar(); renderContent();
 });
 
-initState();
-renderAll();
+/* ══ INIT ══ */
+initState(); renderSidebar(); renderContent();
 </script>
 </body>
 </html>
